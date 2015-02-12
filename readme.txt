@@ -4,7 +4,7 @@ Contributors: yithemes
 Tags: reviews, woocommerce, products, themes, yit, yith, e-commerce, shop, review, email remainder, request review, product review, woocommerce review
 Requires at least: 4.0
 Tested up to: 4.1
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -40,13 +40,18 @@ YITH WooCommerce Review Reminder will add a new tab called "Review Reminder" ins
 
 == Changelog == 
 
+= 1.0.1 =
+
+* Added: Woocommerce 2.3 support
+* Tweak: String translation
+
 = 1.0.0 =
 
 * Initial release
 
 == Upgrade Notice ==
 
-Last Stable Tag 1.0.0
+Last Stable Tag 1.0.1
 
 == Suggestions ==
 
