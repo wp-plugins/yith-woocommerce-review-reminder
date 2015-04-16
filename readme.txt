@@ -15,6 +15,7 @@ Allows you to send a reminder to customers with an invitation to do a review of 
 YITH Woocommerce Review Reminder allows you to send, after 7 days the order status is set to "Completed", a reminder to customers with an invitation to make a review of the items purchased.
 
 **Features:**
+
 * Select mail type (HTML or plain text)
 * Customize email subject
 * Customize email content using a wide set of options
