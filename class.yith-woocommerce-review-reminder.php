@@ -85,7 +85,6 @@ class YWRR_Review_Reminder {
         add_action( 'yith_review_reminder_premium', array( $this, 'premium_tab' ) );
 
         add_action( 'init', array( $this, 'ywrr_post_status' ) );
-        add_action( 'admin_init', array( $this, 'register_pointer' ) );
         add_action( 'admin_init', array( $this, 'ywrr_create_pages' ) );
 
         add_action( 'woocommerce_admin_field_customtext', 'YWRR_Custom_Textarea::output' );
@@ -356,7 +355,7 @@ class YWRR_Review_Reminder {
         $links[] = '<a href="' . admin_url( "admin.php?page={$this->_panel_page}" ) . '">' . __( 'Settings', 'ywrr' ) . '</a>';
 
         if ( defined( 'YWRR_FREE_INIT' ) ) {
-            $links[] = '<a href="' . $this->_premium_landing . '" target="_blank">' . __( 'Premium Version', 'ywrr' ) . '</a>';
+            $links[] = '<a href="' . $this->get_premium_landing_uri() . '" target="_blank">' . __( 'Premium Version', 'ywrr' ) . '</a>';
         }
 
         return $links;
@@ -386,32 +385,6 @@ class YWRR_Review_Reminder {
         }
 
         return $plugin_meta;
-    }
-
-    public function register_pointer() {
-        if ( ! class_exists( 'YIT_Pointers' ) ) {
-
-            include_once( 'plugin-fw/lib/yit-pointers.php' );
-        }
-
-        $premium_message = defined( 'YWRR_PREMIUM' )
-            ? ''
-            : __( 'YITH WooCommerce Review Reminder is available in an outstanding PREMIUM version with many new options, discover it now.', 'ywrr' ) .
-            ' <a href="' . $this->_premium_landing . '">' . __( 'Premium version', 'ywrr' ) . '</a>';
-
-        $args[] = array(
-            'screen_id'  => 'plugins',
-            'pointer_id' => 'yith_ywrr_panel',
-            'target'     => '#toplevel_page_yit_plugin_panel',
-            'content'    => sprintf( '<h3> %s </h3> <p> %s </p>',
-                __( 'YITH WooCommerce Review Reminder', 'ywrr' ),
-                __( 'In the YIT Plugins tab you can find the YITH WooCommerce Review Reminder options. With this menu, you can access to all the settings of our plugins that you have activated.', 'ywrr' ) . '<br>' . $premium_message
-            ),
-            'position'   => array( 'edge' => 'left', 'align' => 'center' ),
-            'init'       => defined( 'YWRR_PREMIUM' ) ? YWRR_INIT : YWRR_FREE_INIT
-        );
-
-        YIT_Pointers()->register( $args );
     }
 
     /**
@@ -480,5 +453,16 @@ class YWRR_Review_Reminder {
      */
     static function ywrr_create_unschedule_job () {
         wp_clear_scheduled_hook( 'ywrr_daily_send_mail_job' );
+    }
+
+    /**
+     * Get the premium landing uri
+     *
+     * @since   1.0.0
+     * @author  Andrea Grillo <andrea.grillo@yithemes.com>
+     * @return  string The premium landing link
+     */
+    public function get_premium_landing_uri(){
+        return defined( 'YITH_REFER_ID' ) ? $this->_premium_landing . '?refer_id=' . YITH_REFER_ID : $this->_premium_landing;
     }
 }

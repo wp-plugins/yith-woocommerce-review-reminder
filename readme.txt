@@ -49,6 +49,7 @@ YITH WooCommerce Review Reminder will add a new tab called "Review Reminder" ins
 = 1.0.2 =
 
 * Fixed: Redirection bug in "Blocklist" tab bulk actions
+* Fixed: E-mail template management
 
 = 1.0.1 =
 

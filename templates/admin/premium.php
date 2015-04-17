@@ -1,3 +1,8 @@
+<?php
+/**
+ * @var $YWRR_Review_Reminder YWRR_Review_Reminder
+ */
+global $YWRR_Review_Reminder; ?>
 <style>
     .section{
         margin-left: -20px;
@@ -198,7 +203,7 @@
                     Upgrade to the <span class="highlight">premium version</span>
                     of <span class="highlight">YITH WooCommerce Review Reminder</span> to benefit from all features!
                 </p>
-                <a href="http://yithemes.com/themes/plugins/yith-woocommerce-review-reminder/" target="_blank" class="premium-cta-button button btn">
+                <a href="<?php echo $YWRR_Review_Reminder->get_premium_landing_uri() ?>" target="_blank" class="premium-cta-button button btn">
                     <span class="highlight">UPGRADE</span>
                     <span>to the premium version</span>
                 </a>
@@ -269,7 +274,7 @@
                     Upgrade to the <span class="highlight">premium version</span>
                     of <span class="highlight">YITH WooCommerce Review Reminder</span> to benefit from all features!
                 </p>
-                <a href="http://yithemes.com/themes/plugins/yith-woocommerce-review-reminder/" target="_blank" class="premium-cta-button button btn">
+                <a href="<?php echo $YWRR_Review_Reminder->get_premium_landing_uri() ?>" target="_blank" class="premium-cta-button button btn">
                     <span class="highlight">UPGRADE</span>
                     <span>to the premium version</span>
                 </a>

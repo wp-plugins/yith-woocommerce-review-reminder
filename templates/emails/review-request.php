@@ -32,7 +32,7 @@ $unsubscribe = add_query_arg( $query_args, get_permalink( get_option( 'ywrr_unsu
 if( defined( 'YWRR_PREMIUM' ) ){
     $review_list = YWRR_Review_Reminder_Premium::ywrr_email_items_list( $item_list );
 } else {
-    $review_list = include_once( YWRR_TEMPLATE_PATH . 'emails/email-items-list.php' );
+    $review_list = include( YWRR_TEMPLATE_PATH . 'emails/email-items-list.php' );
 }
 
 $find = array(

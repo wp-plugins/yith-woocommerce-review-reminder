@@ -47,7 +47,7 @@ if ( defined( 'YWRR_PREMIUM' ) ) {
 if ( defined( 'YWRR_VERSION' ) ) {
     return;
 } else {
-    define( 'YWRR_VERSION', '1.0.1' );
+    define( 'YWRR_VERSION', '1.0.2' );
 }
 
 if ( ! defined( 'YWRR_FREE_INIT' ) ) {

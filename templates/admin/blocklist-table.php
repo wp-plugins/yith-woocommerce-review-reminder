@@ -170,8 +170,15 @@ class YWRR_Blocklist_Table {
                 </table>
             </form>
         <?php else : ?>
-            <form id="persons-table" method="GET">
+            <?php $query_args = array(
+                'page'  => $_GET['page'],
+                'tab'   => $_GET['tab']
+            );
+            $blocklist_url = add_query_arg( $query_args, admin_url( 'admin.php' ) );
+            ?>
+            <form id="persons-table" method="GET" action="<?php echo $blocklist_url ?>">
                 <input type="hidden" name="page" value="<?php echo $_GET['page'] ?>"/>
+                <input type="hidden" name="tab" value="<?php echo $_GET['tab'] ?>"/>
                 <?php $table->display() ?>
             </form>
         <?php endif; ?>
