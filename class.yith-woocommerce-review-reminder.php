@@ -85,7 +85,7 @@ class YWRR_Review_Reminder {
         add_action( 'yith_review_reminder_premium', array( $this, 'premium_tab' ) );
 
         add_action( 'init', array( $this, 'ywrr_post_status' ) );
-        add_action( 'admin_init', array( $this, 'ywrr_create_pages' ) );
+        add_action( 'init', array( $this, 'ywrr_create_pages' ) );
 
         add_action( 'woocommerce_admin_field_customtext', 'YWRR_Custom_Textarea::output' );
         add_action( 'ywrr_blocklist', 'YWRR_Blocklist_Table::output' );
