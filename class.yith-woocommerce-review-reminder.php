@@ -249,6 +249,9 @@ class YWRR_Review_Reminder {
      * @return  void
      */
     public function ywrr_create_pages() {
+
+        if (! function_exists( 'wc_create_page' ) ) return;
+
         $pages = apply_filters( 'woocommerce_create_pages', array(
             'unsubscribe' => array(
                 'name'    => _x( 'unsubscribe', 'Page slug', 'ywrr' ),
@@ -315,7 +318,7 @@ class YWRR_Review_Reminder {
                 'post_type'     => 'page',
                 'impossible'    => '1'
             );
-            $error_url = add_query_arg( $query_args, admin_url( 'edit.php' ) );
+            $error_url = esc_url( add_query_arg( $query_args, admin_url( 'edit.php' ) ) );
 
             wp_redirect( $error_url );
             exit();
