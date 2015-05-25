@@ -61,27 +61,34 @@ class YWRR_Request_Mail extends WC_Email {
     /**
      * Trigger email send
      *
+     * @since   1.0.0
      * @param   $order_id int the order id
      * @param   $item_list array the list of items to review
      * @param   $days_ago int number of days after order completion
-     * @since   1.0.0
-     * @author  Alberto Ruggiero
+     * @param   $test_email
      * @return  void
+     * @author  Alberto Ruggiero
      */
-    public function trigger( $order_id, $item_list, $days_ago ) {
+    public function trigger( $order_id, $item_list, $days_ago, $test_email = '' ) {
+
+        $this->email_type   = get_option( 'ywrr_mail_type' );
+        $this->heading      = get_option( 'ywrr_mail_subject' );
+        $this->subject      = get_option( 'ywrr_mail_subject' );
+        $this->days_ago     = $days_ago;
+        $this->item_list    = $item_list;
+        $this->find['site-title']    = '{site_title}';
+        $this->replace['site-title'] = $this->get_blogname();
 
         if ( $order_id ) {
-            $this->email_type   = get_option( 'ywrr_mail_type' );
-            $this->heading      = get_option( 'ywrr_mail_subject' );
-            $this->subject      = get_option( 'ywrr_mail_subject' );
 
             $this->object 		= wc_get_order( $order_id );
             $this->recipient	= $this->object->billing_email;
-            $this->days_ago     = $days_ago;
-            $this->item_list    = $item_list;
 
-            $this->find['site-title']    = '{site_title}';
-            $this->replace['site-title'] = $this->get_blogname();
+        } else {
+
+            $this->object       = 0;
+            $this->recipient	= $test_email;
+
         }
 
         if ( ! $this->get_recipient() ) {
@@ -92,11 +99,49 @@ class YWRR_Request_Mail extends WC_Email {
     }
 
     /**
+     * Send the email.
+     *
+     * @since   1.0.3
+     * @param   string $to
+     * @param   string $subject
+     * @param   string $message
+     * @param   string $headers
+     * @param   string $attachments
+     * @return  bool
+     * @author  Alberto Ruggiero
+     */
+    public function send( $to, $subject, $message, $headers, $attachments ) {
+
+        add_filter( 'wp_mail_from', array( $this, 'get_from_address' ) );
+        add_filter( 'wp_mail_from_name', array( $this, 'get_from_name' ) );
+        add_filter( 'wp_mail_content_type', array( $this, 'get_content_type' ) );
+
+        $message = apply_filters( 'woocommerce_mail_content', $this->style_inline( $message ) );
+
+        if ( defined( 'YWRR_PREMIUM' ) && get_option( 'ywrr_mandrill_enable' ) == 'yes' ) {
+
+            $return = YWRR_Mandrill_Premium::send( $to, $subject, $message, $headers, $attachments );
+
+        } else {
+
+            $return = wp_mail( $to, $subject, $message, $headers, $attachments );
+
+        }
+
+        remove_filter( 'wp_mail_from', array( $this, 'get_from_address' ) );
+        remove_filter( 'wp_mail_from_name', array( $this, 'get_from_name' ) );
+        remove_filter( 'wp_mail_content_type', array( $this, 'get_content_type' ) );
+
+        return $return;
+
+    }
+
+    /**
      * Get HTML content
      *
      * @since   1.0.0
-     * @author  Alberto Ruggiero
      * @return  string
+     * @author  Alberto Ruggiero
      */
     function get_content_html() {
         ob_start();
@@ -116,8 +161,8 @@ class YWRR_Request_Mail extends WC_Email {
      * Get Plain content
      *
      * @since   1.0.0
-     * @author  Alberto Ruggiero
      * @return  string
+     * @author  Alberto Ruggiero
      */
     function get_content_plain() {
         ob_start();
@@ -134,13 +179,13 @@ class YWRR_Request_Mail extends WC_Email {
     }
 
     /**
-     * Admin Panel Options Processing
-     * - Saves the options to the DB
+     * Admin Panel Options Processing - Saves the options to the DB
      *
-     * @since 1.0.0
-     * @return boolean|null
+     * @since   1.0.0
+     * @return  boolean|null
+     * @author  Alberto Ruggiero
      */
-    public function process_admin_options() {
+    function process_admin_options() {
         woocommerce_update_options( $this->form_fields['mail'] );
     }
 
@@ -148,8 +193,8 @@ class YWRR_Request_Mail extends WC_Email {
      * Setup email settings screen.
      *
      * @since   1.0.0
-     * @author  Alberto Ruggiero
      * @return  string
+     * @author  Alberto Ruggiero
      */
     public function admin_options() {
         ?>
@@ -164,8 +209,8 @@ class YWRR_Request_Mail extends WC_Email {
      * Initialise Settings Form Fields
      *
      * @since   1.0.0
-     * @author  Alberto Ruggiero
      * @return  void
+     * @author  Alberto Ruggiero
      */
     function init_form_fields() {
         $this->form_fields = include( YWRR_DIR . '/plugin-options/mail-options.php' );

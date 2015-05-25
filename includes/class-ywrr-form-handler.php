@@ -29,8 +29,8 @@ class YWRR_Form_Handler {
      * Initialize the unsubscribe form actions
      *
      * @since   1.0.0
-     * @author  Alberto Ruggiero
      * @return  void
+     * @author  Alberto Ruggiero
      */
     public static function init() {
 
@@ -42,8 +42,8 @@ class YWRR_Form_Handler {
      * Handles the unsubscribe form
      *
      * @since   1.0.0
-     * @author  Alberto Ruggiero
      * @return  void
+     * @author  Alberto Ruggiero
      */
     public static function unsubscribe_review_request() {
 

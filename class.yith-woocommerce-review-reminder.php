@@ -7,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Implements features of YWRR plugin
  *
- * @class   YWRR_ReviewReminder
+ * @class   YWRR_Review_Reminder
  * @package Yithemes
  * @since   1.0.0
  * @author  Your Inspiration Themes
@@ -15,7 +15,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 class YWRR_Review_Reminder {
 
     /**
-     * @var $_panel Panel Object
+     * Panel object
+     *
+     * @var     /Yit_Plugin_Panel object
+     * @since   1.0.0
+     * @see     plugin-fw/lib/yit-plugin-panel.php
      */
     protected $_panel;
 
@@ -39,6 +43,9 @@ class YWRR_Review_Reminder {
      */
     protected $_panel_page = 'yith_ywrr_panel';
 
+    /**
+     * @var array
+     */
     protected $_email_types = array();
 
     /**
@@ -46,8 +53,9 @@ class YWRR_Review_Reminder {
      *
      * Initialize plugin and registers actions and filters to be used
      *
-     * @since  1.0
-     * @author Alberto Ruggiero
+     * @since   1.0.0
+     * @return  mixed
+     * @author  Alberto Ruggiero
      */
     public function __construct() {
         if ( ! function_exists( 'WC' ) ) {
@@ -87,8 +95,12 @@ class YWRR_Review_Reminder {
         add_action( 'init', array( $this, 'ywrr_post_status' ) );
         add_action( 'init', array( $this, 'ywrr_create_pages' ) );
 
+        add_filter( 'set-screen-option', 'YWRR_Blocklist_Table::set_options', 10, 3);
+
         add_action( 'woocommerce_admin_field_customtext', 'YWRR_Custom_Textarea::output' );
         add_action( 'ywrr_blocklist', 'YWRR_Blocklist_Table::output' );
+        add_action( 'current_screen', 'YWRR_Blocklist_Table::add_options' );
+
         add_action( 'woocommerce_order_status_completed', 'YWRR_Schedule::schedule_mail' );
         add_filter( 'woocommerce_email_classes', array( $this, 'ywrr_custom_email' ) );
         add_filter( 'woocommerce_get_sections_email', array( $this, 'ywrr_hide_sections' ) );
@@ -114,8 +126,9 @@ class YWRR_Review_Reminder {
      * Hides custom email settings from WooCommerce panel
      *
      * @since   1.0.0
-     * @author  Andrea Grillo
+     * @param   $sections
      * @return  array
+     * @author  Andrea Grillo
      */
     public function ywrr_hide_sections( $sections ){
         foreach( $this->_email_types as $type => $email_type ){
@@ -131,10 +144,9 @@ class YWRR_Review_Reminder {
     /**
      * Enqueue css file
      *
-     * @since  1.0
-     * @access public
-     * @return void
-     * @author Andrea Grillo <andrea.grillo@yithemes.com>
+     * @since   1.0.0
+     * @return  void
+     * @author  Andrea Grillo <andrea.grillo@yithemes.com>
      */
     public function plugin_fw_loader() {
         if ( ! defined( 'YIT' ) || ! defined( 'YIT_CORE_PLUGIN' ) ) {
@@ -146,8 +158,8 @@ class YWRR_Review_Reminder {
      * Files inclusion
      *
      * @since   1.0.0
-     * @author  Alberto Ruggiero
      * @return  void
+     * @author  Alberto Ruggiero
      */
     private function includes() {
 
@@ -156,7 +168,7 @@ class YWRR_Review_Reminder {
         include_once( 'includes/class-ywrr-schedule.php' );
 
         if ( is_admin() ) {
-            include_once( 'includes/admin/class-ywrr-custom-table.php' );
+            include_once( 'includes/admin/class-yith-custom-table.php' );
             include_once( 'templates/admin/custom-textarea.php' );
             include_once( 'templates/admin/blocklist-table.php' );
         }
@@ -169,11 +181,11 @@ class YWRR_Review_Reminder {
     /**
      * Add a panel under YITH Plugins tab
      *
-     * @return   void
-     * @since    1.0
-     * @author   Andrea Grillo <andrea.grillo@yithemes.com>
+     * @since   1.0.0
+     * @return  void
+     * @author  Alberto Ruggiero
      * @use     /Yit_Plugin_Panel class
-     * @see      plugin-fw/lib/yit-plugin-panel.php
+     * @see     plugin-fw/lib/yit-plugin-panel.php
      */
     public function add_menu_page() {
         if ( ! empty( $this->_panel ) ) {
@@ -187,6 +199,8 @@ class YWRR_Review_Reminder {
 
         if ( defined( 'YWRR_PREMIUM' ) ) {
             $admin_tabs['settings'] = __( 'Request Settings', 'ywrr' );
+            $admin_tabs['mandrill'] = __( 'Mandrill Settings', 'ywrr' );
+            $admin_tabs['schedule'] = __( 'Schedule List', 'ywrr' );
         } else {
             $admin_tabs['premium-landing'] = __( 'Premium Version', 'ywrr' );
         }
@@ -212,10 +226,9 @@ class YWRR_Review_Reminder {
      *
      * Load the premium tab template on admin page
      *
-     * @return   void
-     * @since    1.0
-     * @author   Andrea Grillo <andrea.grillo@yithemes.com>
-     * @return void
+     * @since   1.0.0
+     * @return  void
+     * @author  Andrea Grillo <andrea.grillo@yithemes.com>
      */
     public function premium_tab() {
         $premium_tab_template = YWRR_TEMPLATE_PATH . '/admin/' . $this->_premium;
@@ -228,8 +241,8 @@ class YWRR_Review_Reminder {
      * Creates a custom post status for unsubscribe page in order to avoid visibility of page in automatic menus
      *
      * @since   1.0.0
-     * @author  Alberto Ruggiero
      * @return  void
+     * @author  Alberto Ruggiero
      */
     public function ywrr_post_status() {
         register_post_status( 'ywrr-unsubscribe', array(
@@ -245,8 +258,8 @@ class YWRR_Review_Reminder {
      * Creates the unsubscribe page
      *
      * @since   1.0.0
-     * @author  Alberto Ruggiero
      * @return  void
+     * @author  Alberto Ruggiero
      */
     public function ywrr_create_pages() {
 
@@ -276,8 +289,9 @@ class YWRR_Review_Reminder {
      * Add the YWRR_Request_Mail class to WooCommerce mail classes
      *
      * @since   1.0.0
-     * @author  Alberto Ruggiero
+     * @param   $email_classes
      * @return  array
+     * @author  Alberto Ruggiero
      */
     public function ywrr_custom_email( $email_classes ) {
 
@@ -292,8 +306,8 @@ class YWRR_Review_Reminder {
      * Notifies the inability to delete the page
      *
      * @since   1.0.0
-     * @author  Alberto Ruggiero
      * @return  void
+     * @author  Alberto Ruggiero
      */
     public function ywrr_protect_unsubscribe_page_notice() {
         global $post_type, $pagenow;
@@ -306,10 +320,10 @@ class YWRR_Review_Reminder {
     /**
      * Prevent the deletion of unsubscribe page
      *
-     * @param   $post_id int the id of the page
      * @since   1.0.0
-     * @author  Alberto Ruggiero
+     * @param   $post_id
      * @return  void
+     * @author  Alberto Ruggiero
      */
     public function ywrr_protect_unsubscribe_page( $post_id ) {
         if( $post_id == get_option( 'ywrr_unsubscribe_page_id' ) ) {
@@ -329,8 +343,8 @@ class YWRR_Review_Reminder {
      * Unsubscribe page shortcode.
      *
      * @since   1.0.0
-     * @author  Alberto Ruggiero
      * @return  string
+     * @author  Alberto Ruggiero
      */
     public function ywrr_unsubscribe() {
         echo '<div class ="woocommerce">';
@@ -345,20 +359,18 @@ class YWRR_Review_Reminder {
      *
      * add the action links to plugin admin page
      *
-     * @param $links | links plugin array
-     *
-     * @return   mixed Array
-     * @since    1.0
-     * @author   Andrea Grillo <andrea.grillo@yithemes.com>
-     * @return mixed
-     * @use plugin_action_links_{$plugin_file_name}
+     * @since   1.0.0
+     * @param   $links | links plugin array
+     * @return  mixed
+     * @author  Andrea Grillo <andrea.grillo@yithemes.com>
+     * @use     plugin_action_links_{$plugin_file_name}
      */
     public function action_links( $links ) {
 
         $links[] = '<a href="' . admin_url( "admin.php?page={$this->_panel_page}" ) . '">' . __( 'Settings', 'ywrr' ) . '</a>';
 
         if ( defined( 'YWRR_FREE_INIT' ) ) {
-            $links[] = '<a href="' . $this->get_premium_landing_uri() . '" target="_blank">' . __( 'Premium Version', 'ywrr' ) . '</a>';
+            $links[] = '<a href="' . $this->_premium_landing . '" target="_blank">' . __( 'Premium Version', 'ywrr' ) . '</a>';
         }
 
         return $links;
@@ -369,15 +381,14 @@ class YWRR_Review_Reminder {
      *
      * add the action links to plugin admin page
      *
-     * @param $plugin_meta
-     * @param $plugin_file
-     * @param $plugin_data
-     * @param $status
-     *
-     * @return   Array
-     * @since    1.0
-     * @author   Andrea Grillo <andrea.grillo@yithemes.com>
-     * @use plugin_row_meta
+     * @since   1.0.0
+     * @param   $plugin_meta
+     * @param   $plugin_file
+     * @param   $plugin_data
+     * @param   $status
+     * @return  Array
+     * @author  Andrea Grillo <andrea.grillo@yithemes.com>
+     * @use     plugin_row_meta
      */
     public function plugin_row_meta( $plugin_meta, $plugin_file, $plugin_data, $status ) {
         if ( ( defined( 'YWRR_INIT' ) && ( YWRR_INIT == $plugin_file ) ) ||
@@ -394,8 +405,8 @@ class YWRR_Review_Reminder {
      * Creates database table for blocklist e scheduling
      *
      * @since   1.0.0
-     * @author  Alberto Ruggiero
      * @return  void
+     * @author  Alberto Ruggiero
      */
     static function ywrr_create_tables() {
         global $wpdb;
@@ -440,8 +451,8 @@ class YWRR_Review_Reminder {
      * Creates a cron job to handle daily mail send
      *
      * @since   1.0.0
-     * @author  Alberto Ruggiero
      * @return  void
+     * @author  Alberto Ruggiero
      */
     static function ywrr_create_schedule_job () {
         wp_schedule_event( time(), 'daily', 'ywrr_daily_send_mail_job' );
@@ -451,21 +462,11 @@ class YWRR_Review_Reminder {
      * Removes cron job
      *
      * @since   1.0.0
-     * @author  Alberto Ruggiero
      * @return  void
+     * @author  Alberto Ruggiero
      */
     static function ywrr_create_unschedule_job () {
         wp_clear_scheduled_hook( 'ywrr_daily_send_mail_job' );
     }
 
-    /**
-     * Get the premium landing uri
-     *
-     * @since   1.0.0
-     * @author  Andrea Grillo <andrea.grillo@yithemes.com>
-     * @return  string The premium landing link
-     */
-    public function get_premium_landing_uri(){
-        return defined( 'YITH_REFER_ID' ) ? $this->_premium_landing . '?refer_id=' . YITH_REFER_ID : $this->_premium_landing;
-    }
 }

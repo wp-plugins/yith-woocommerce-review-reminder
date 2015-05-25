@@ -5,7 +5,7 @@ Plugin URI: http://yithemes.com/themes/plugins/yith-woocommerce-review-reminder
 Description: Send a review reminder to the customers over WooCommerce.
 Author: Yithemes
 Text Domain: ywrr
-Version: 1.0.2
+Version: 1.0.3
 Author URI: http://yithemes.com/
 */
 
@@ -47,7 +47,7 @@ if ( defined( 'YWRR_PREMIUM' ) ) {
 if ( defined( 'YWRR_VERSION' ) ) {
     return;
 } else {
-    define( 'YWRR_VERSION', '1.0.2' );
+    define( 'YWRR_VERSION', '1.0.3' );
 }
 
 if ( ! defined( 'YWRR_FREE_INIT' ) ) {

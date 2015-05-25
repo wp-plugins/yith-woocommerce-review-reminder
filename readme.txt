@@ -3,8 +3,8 @@
 Contributors: yithemes
 Tags: reviews, woocommerce, products, themes, yit, yith, e-commerce, shop, review, email remainder, request review, product review, woocommerce review
 Requires at least: 4.0
-Tested up to: 4.1
-Stable tag: 1.0.2
+Tested up to: 4.2.2
+Stable tag: 1.0.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -44,7 +44,11 @@ YITH WooCommerce Review Reminder will add a new tab called "Review Reminder" ins
 
 2. This is the blocklist page for the plugin. You can add or remove users from the blocklist.
 
-== Changelog == 
+== Changelog ==
+
+= 1.0.3 =
+
+* Added: Screen options for Blocklist table
 
 = 1.0.2 =
 

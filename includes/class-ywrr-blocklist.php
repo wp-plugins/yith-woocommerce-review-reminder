@@ -26,11 +26,11 @@ class YWRR_Blocklist {
     /**
      * Check if the customer is in blocklist table
      *
+     * @since   1.0.0
      * @param   $customer_id int the user id
      * @param   $customer_email string the user email
-     * @since   1.0.0
-     * @author  Alberto Ruggiero
      * @return  bool
+     * @author  Alberto Ruggiero
      */
     static function check_blocklist( $customer_id, $customer_email ) {
         global $wpdb;
@@ -55,11 +55,11 @@ class YWRR_Blocklist {
     /**
      * Add customer to blocklist table
      *
+     * @since   1.0.0
      * @param   $customer_id int the user id
      * @param   $customer_email string the user email
-     * @since   1.0.0
-     * @author  Alberto Ruggiero
      * @return  void
+     * @author  Alberto Ruggiero
      */
     static function add_to_blocklist( $customer_id, $customer_email ) {
         global $wpdb;
@@ -76,4 +76,5 @@ class YWRR_Blocklist {
             )
         );
     }
+
 }

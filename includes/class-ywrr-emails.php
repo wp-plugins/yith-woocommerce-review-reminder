@@ -26,10 +26,13 @@ class YWRR_Emails {
     /**
      * Prepares and send the review request mail
      *
-     * @param   $order_id int the order id
      * @since   1.0.0
-     * @author  Alberto Ruggiero
+     * @param   $order_id int the order id
+     * @param   $days
+     * @param   $items_to_review
+     * @param   $stored_items
      * @return  void
+     * @author  Alberto Ruggiero
      */
     static function send_email( $order_id, $days, $items_to_review = array(), $stored_items = array() ){
 
@@ -44,10 +47,10 @@ class YWRR_Emails {
     /**
      * Prepares the list of items to review from stored options
      *
-     * @param   $order_id int the order id
      * @since   1.0.0
-     * @author  Alberto Ruggiero
+     * @param   $order_id int the order id
      * @return  array
+     * @author  Alberto Ruggiero
      */
     static function get_review_list( $order_id ) {
         global $wpdb;

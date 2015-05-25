@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 $custom_template    = ! defined( 'YWRR_PREMIUM' ) ? '' : array(
     'name'      => __( 'Mail template', 'ywrr' ),
-    'type'      => 'select',
+    'type'      => 'custom-select',
     'desc'      => '',
     'options'   => array(
         'base'        => __('Woocommerce Template', 'ywrr'),

@@ -21,13 +21,34 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @author Your Inspiration Themes
  */
 
-$customer_id = $order->__get( 'user_id' );
+if ( ! $order ) {
+
+    global $current_user;
+    get_currentuserinfo();
+
+    $billing_email      = $current_user->user_email;
+    $order_date         = current_time( 'mysql' );
+    $modified_date      = current_time( 'mysql' );
+    $order_id           = '0';
+    $customer_id        = $current_user->ID;
+    $billing_first_name = $current_user->user_login;
+
+} else {
+
+    $billing_email      = $order->billing_email;
+    $order_date         = $order->order_date;
+    $modified_date      = $order->modified_date;
+    $order_id           = $order->id;
+    $customer_id        = $order->__get( 'user_id' );
+    $billing_first_name = $order->billing_first_name;
+
+}
 
 $query_args = array(
     'id'    => urlencode( base64_encode( ! empty( $customer_id ) ? $customer_id : 0 ) ),
-    'email' => urlencode( base64_encode( $order->billing_email ) )
+    'email' => urlencode( base64_encode( $billing_email ) )
 );
-$unsubscribe = get_option( 'ywrr_mail_unsubscribe_text' ) . ' - ' . add_query_arg( $query_args, get_permalink( get_option( 'ywrr_unsubscribe_page_id' ) ) );
+$unsubscribe = get_option( 'ywrr_mail_unsubscribe_text' ) . ' - ' . esc_url( add_query_arg( $query_args, get_permalink( get_option( 'ywrr_unsubscribe_page_id' ) ) ) );
 
 foreach ( $item_list as $item ){
     $review_list .= $item['name'] . ' - ' . get_permalink( $item['id'] ) . "\n";
@@ -45,12 +66,12 @@ $find = array(
 );
 
 $replace = array(
-    $order->billing_first_name,
-    $order->billing_email,
+    $billing_first_name,
+    $billing_email,
     get_option( 'blogname' ),
-    $order->id,
-    $order->order_date,
-    $order->modified_date,
+    $order_id,
+    $order_date,
+    $modified_date,
     $review_list,
     $days_ago
 );

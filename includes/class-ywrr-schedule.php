@@ -26,10 +26,10 @@ class YWRR_Schedule {
     /**
      * Create a schedule record
      *
-     * @param   $order_id int the order id
      * @since   1.0.0
-     * @author  Alberto Ruggiero
+     * @param   $order_id int the order id
      * @return  void
+     * @author  Alberto Ruggiero
      */
     static function schedule_mail( $order_id ) {
         if( self::check_exists_schedule( $order_id ) == 0) {
@@ -59,10 +59,10 @@ class YWRR_Schedule {
     /**
      * Checks if order has a scheduled email
      *
-     * @param   $order_id int the order id
      * @since   1.0.0
-     * @author  Alberto Ruggiero
+     * @param   $order_id int the order id
      * @return  int
+     * @author  Alberto Ruggiero
      */
     static function check_exists_schedule( $order_id ) {
         global $wpdb;
@@ -79,11 +79,11 @@ class YWRR_Schedule {
     /**
      * Changes email schedule status
      *
+     * @since   1.0.0
      * @param   $order_id int the order id
      * @param   $status string the status of scheduling
-     * @since   1.0.0
-     * @author  Alberto Ruggiero
      * @return  void
+     * @author  Alberto Ruggiero
      */
     static function change_schedule_status( $order_id, $status = 'cancelled' ) {
         global $wpdb;
@@ -106,8 +106,8 @@ class YWRR_Schedule {
      * Handles the daily mail sending
      *
      * @since   1.0.0
-     * @author  Alberto Ruggiero
      * @return  void
+     * @author  Alberto Ruggiero
      */
     static function daily_schedule() {
         global $wpdb;
