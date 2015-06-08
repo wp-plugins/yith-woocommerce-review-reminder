@@ -469,4 +469,15 @@ class YWRR_Review_Reminder {
         wp_clear_scheduled_hook( 'ywrr_daily_send_mail_job' );
     }
 
+    /**
+     * Get the premium landing uri
+     *
+     * @since   1.0.0
+     * @return  string
+     * @author  Alberto Ruggiero
+     */
+    public function get_premium_landing_uri() {
+        return defined( 'YITH_REFER_ID' ) ? $this->_premium_landing . '?refer_id=' . YITH_REFER_ID : $this->_premium_landing;
+    }
+
 }

@@ -200,18 +200,18 @@ global $YWRR_Review_Reminder; ?>
         <div class="landing-container">
             <div class="premium-cta">
                 <p>
-                    Upgrade to the <span class="highlight">premium version</span>
-                    of <span class="highlight">YITH WooCommerce Review Reminder</span> to benefit from all features!
+                    <?php echo sprintf( __('Upgrade to the %1$spremium version%2$s
+                    of %1$sYITH WooCommerce Review Reminder%2$s to benefit from all features!','ywrr'),'<span class="highlight">','</span>' );  ?>
+
                 </p>
                 <a href="<?php echo $YWRR_Review_Reminder->get_premium_landing_uri() ?>" target="_blank" class="premium-cta-button button btn">
-                    <span class="highlight">UPGRADE</span>
-                    <span>to the premium version</span>
+                    <?php echo sprintf( __('%sUPGRADE%s%sto the premium version%s','ywrr'),'<span class="highlight">','</span>','<span>','</span>' );  ?>
                 </a>
             </div>
         </div>
     </div>
     <div class="section section-even clear" style="background: url(<?php echo YWRR_ASSETS_URL ?>/images/01-bg.png) no-repeat #fff; background-position: 85% 75%">
-        <h1>Premium Features</h1>
+        <h1><?php _e('Premium Features','ywrr');?></h1>
         <div class="landing-container">
             <div class="col-1">
                 <img src="<?php echo YWRR_ASSETS_URL ?>/images/01.png" alt="Review Title" />
@@ -219,9 +219,9 @@ global $YWRR_Review_Reminder; ?>
             <div class="col-2">
                 <div class="section-title">
                     <img src="<?php echo YWRR_ASSETS_URL ?>/images/01-icon.png" alt="Review Title"/>
-                    <h2>SELECTION OF THE PRODUCTS TO REVIEW</h2>
+                    <h2><?php _e('SELECTION OF THE PRODUCTS TO REVIEW','ywrr');?></h2>
                 </div>
-                <p>Choose to ask users the review of every purchased product, or only a part of them.</p>
+                <p><?php _e('Choose to ask users the review of every purchased product, or only a part of them.','ywrr');?></p>
             </div>
         </div>
     </div>
@@ -230,9 +230,9 @@ global $YWRR_Review_Reminder; ?>
             <div class="col-2">
                 <div class="section-title">
                     <img src="<?php echo YWRR_ASSETS_URL ?>/images/02-icon.png" alt="Attachment List" />
-                    <h2>DEADLINE FOR EMAIL DISPATCHING</h2>
+                    <h2><?php _e('DEADLINE FOR EMAIL DISPATCHING','ywrr');?></h2>
                 </div>
-                <p>Set how many days have to pass before sending the email to request a review, after the order has been marked as "Completed".</p>
+                <p><?php _e('Set how many days have to pass before sending the email to request a review, after the order has been marked as "Completed"','ywrr');?></p>
             </div>
             <div class="col-1">
                 <img src="<?php echo YWRR_ASSETS_URL ?>/images/02.png" alt="Attachment List" />
@@ -247,9 +247,9 @@ global $YWRR_Review_Reminder; ?>
             <div class="col-2">
                 <div class="section-title">
                     <img src="<?php echo YWRR_ASSETS_URL ?>/images/03-icon.png" alt="Vote the review" />
-                    <h2>BLOCKLIST</h2>
+                    <h2><?php _e('BLOCKLIST','ywrr');?></h2>
                 </div>
-                <p>Add to the blocklist all the users' emails that don't want to review any product of your e-commerce.</p>
+                <p><?php _e('Add to the blocklist all the users\' emails that don\'t want to review any product of your e-commerce.','ywrr');?></p>
             </div>
         </div>
     </div>
@@ -258,12 +258,46 @@ global $YWRR_Review_Reminder; ?>
             <div class="col-2">
                 <div class="section-title">
                     <img src="<?php echo YWRR_ASSETS_URL ?>/images/04-icon.png" alt="Number" />
-                    <h2>EMAIL TEMPLATE</h2>
+                    <h2><?php _e('EMAIL TEMPLATE','ywrr');?></h2>
                 </div>
-                <p>Select the layout you want for your email choosing among the four possibilities we offer you.</p>
+                <p><?php _e('Select the layout you want for your email choosing among the four possibilities we offer you.','ywrr');?></p>
             </div>
             <div class="col-1">
                 <img src="<?php echo YWRR_ASSETS_URL ?>/images/04.png" alt="Number" />
+            </div>
+        </div>
+    </div>
+    <div class="section section-even clear" style="background: url(<?php echo YWRR_ASSETS_URL ?>/images/05-bg.png) no-repeat #fff; background-position: 85% 100%">
+        <div class="landing-container">
+            <div class="col-1">
+                <img src="<?php echo YWRR_ASSETS_URL ?>/images/05.png" alt="Image 05" />
+            </div>
+            <div class="col-2">
+                <div class="section-title">
+                    <img src="<?php echo YWRR_ASSETS_URL ?>/images/05-icon.png" alt="Icon 05" />
+                    <h2><?php _e('MANDRILL INTEGRATION','ywrr');?></h2>
+                </div>
+                <p>
+                    <?php _e('You can just enter the API KEY to manage email sending with Mandrill. A simple and quick way to fulfill your needs.','ywrr');?>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="section section-odd clear" style="background: url(<?php echo YWRR_ASSETS_URL ?>/images/06-bg.png) no-repeat #f1f1f1; background-position: 15% 100%">
+        <div class="landing-container">
+            <div class="col-2">
+                <div class="section-title">
+                    <img src="<?php echo YWRR_ASSETS_URL ?>/images/06-icon.png" alt="Icon 06" />
+                    <h2><?php _e('SCHEDULE LIST','ywrr');?></h2>
+                </div>
+                <p>
+                    <?php echo sprintf( __( '%sSchedule List%s tab allows you to have a overview on all schedules made so far, whether they are
+                    still in progress or already completed. And that\'s not all: from this section, you can also delete a
+                    schedule.','ywrr' ),'<b>','</b>' );?>
+                </p>
+            </div>
+            <div class="col-1">
+                <img src="<?php echo YWRR_ASSETS_URL ?>/images/06.png" alt="Image 06" />
             </div>
         </div>
     </div>
@@ -271,12 +305,12 @@ global $YWRR_Review_Reminder; ?>
         <div class="landing-container">
             <div class="premium-cta">
                 <p>
-                    Upgrade to the <span class="highlight">premium version</span>
-                    of <span class="highlight">YITH WooCommerce Review Reminder</span> to benefit from all features!
+                    <?php echo sprintf( __('Upgrade to the %1$spremium version%2$s
+                    of %1$sYITH WooCommerce Review Reminder%2$s to benefit from all features!','ywrr'),'<span class="highlight">','</span>' );  ?>
+
                 </p>
                 <a href="<?php echo $YWRR_Review_Reminder->get_premium_landing_uri() ?>" target="_blank" class="premium-cta-button button btn">
-                    <span class="highlight">UPGRADE</span>
-                    <span>to the premium version</span>
+                    <?php echo sprintf( __('%sUPGRADE%s%sto the premium version%s','ywrr'),'<span class="highlight">','</span>','<span>','</span>' );  ?>
                 </a>
             </div>
         </div>
