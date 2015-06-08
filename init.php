@@ -91,4 +91,6 @@ register_activation_hook( __FILE__, array('YWRR_Review_Reminder', 'ywrr_create_t
 register_activation_hook( __FILE__, array('YWRR_Review_Reminder', 'ywrr_create_schedule_job' ) );
 register_deactivation_hook( __FILE__, array('YWRR_Review_Reminder', 'ywrr_create_unschedule_job' ) );
 
+global $YWRR_Review_Reminder;
+
 $YWRR_Review_Reminder = new YWRR_Review_Reminder();

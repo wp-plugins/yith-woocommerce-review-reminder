@@ -12,6 +12,8 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 } // Exit if accessed directly
 
+global $YWRR_Review_Reminder;
+
 $custom_template    = ! defined( 'YWRR_PREMIUM' ) ? '' : array(
     'name'      => __( 'Mail template', 'ywrr' ),
     'type'      => 'custom-select',
