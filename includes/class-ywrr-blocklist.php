@@ -8,73 +8,129 @@
  * http://www.gnu.org/licenses/gpl-3.0.txt
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
+if ( !defined( 'ABSPATH' ) ) {
     exit; // Exit if accessed directly
 }
 
-/**
- * Implements blocklist functions for YWRR plugin
- *
- * @class   YWRR_Blocklist
- * @package Yithemes
- * @since   1.0.0
- * @author  Your Inspiration Themes
- *
- */
-class YWRR_Blocklist {
+if ( !class_exists( 'YWRR_Blocklist' ) ) {
 
     /**
-     * Check if the customer is in blocklist table
+     * Implements blocklist functions for YWRR plugin
      *
+     * @class   YWRR_Blocklist
+     * @package Yithemes
      * @since   1.0.0
-     * @param   $customer_id int the user id
-     * @param   $customer_email string the user email
-     * @return  bool
-     * @author  Alberto Ruggiero
+     * @author  Your Inspiration Themes
+     *
      */
-    static function check_blocklist( $customer_id, $customer_email ) {
-        global $wpdb;
+    class YWRR_Blocklist {
 
-        if( 0 == $customer_id) {
-            $count = $wpdb->get_var( $wpdb->prepare( "
+        /**
+         * Single instance of the class
+         *
+         * @var \YWRR_Blocklist
+         * @since 1.0.0
+         */
+        protected static $instance;
+
+        /**
+         * Returns single instance of the class
+         *
+         * @return \YWRR_Blocklist
+         * @since 1.0.0
+         */
+        public static function get_instance() {
+
+            if ( is_null( self::$instance ) ) {
+
+                self::$instance = new self( $_REQUEST );
+
+            }
+
+            return self::$instance;
+        }
+
+        /**
+         * Constructor
+         *
+         * @since   1.0.0
+         * @return  mixed
+         * @author  Alberto Ruggiero
+         */
+        public function __construct() {
+
+        }
+
+        /**
+         * Check if the customer is in blocklist table
+         *
+         * @since   1.0.0
+         *
+         * @param   $customer_id    int the user id
+         * @param   $customer_email string the user email
+         *
+         * @return  bool
+         * @author  Alberto Ruggiero
+         */
+        public function check_blocklist( $customer_id, $customer_email ) {
+            global $wpdb;
+
+            if ( 0 == $customer_id ) {
+                $count = $wpdb->get_var( $wpdb->prepare( "
                     SELECT    COUNT(*)
                     FROM      {$wpdb->prefix}ywrr_email_blocklist
                     WHERE     customer_email = %s
                     ", $customer_email ) );
-        } else {
-            $count = $wpdb->get_var( $wpdb->prepare( "
+            }
+            else {
+                $count = $wpdb->get_var( $wpdb->prepare( "
                     SELECT    COUNT(*)
                     FROM      {$wpdb->prefix}ywrr_email_blocklist
                     WHERE     customer_id = %d
                     ", $customer_id ) );
+            }
+
+            return ( $count >= 1 ? false : true );
         }
 
-        return ( $count >= 1 ? false : true );
+        /**
+         * Add customer to blocklist table
+         *
+         * @since   1.0.0
+         *
+         * @param   $customer_id    int the user id
+         * @param   $customer_email string the user email
+         *
+         * @return  void
+         * @author  Alberto Ruggiero
+         */
+        public function add_to_blocklist( $customer_id, $customer_email ) {
+            global $wpdb;
+
+            $wpdb->insert(
+                $wpdb->prefix . 'ywrr_email_blocklist',
+                array(
+                    'customer_email' => $customer_email,
+                    'customer_id'    => $customer_id
+                ),
+                array(
+                    '%s',
+                    '%d'
+                )
+            );
+        }
+
     }
 
     /**
-     * Add customer to blocklist table
+     * Unique access to instance of YWRR_Blocklist class
      *
-     * @since   1.0.0
-     * @param   $customer_id int the user id
-     * @param   $customer_email string the user email
-     * @return  void
-     * @author  Alberto Ruggiero
+     * @return \YWRR_Blocklist
      */
-    static function add_to_blocklist( $customer_id, $customer_email ) {
-        global $wpdb;
+    function YWRR_Blocklist() {
 
-        $wpdb->insert(
-            $wpdb->prefix . 'ywrr_email_blocklist',
-            array(
-                'customer_email'    => $customer_email,
-                'customer_id'       => $customer_id
-            ),
-            array(
-                '%s',
-                '%d'
-            )
-        );
+        return YWRR_Blocklist::get_instance();
+
     }
 
 }

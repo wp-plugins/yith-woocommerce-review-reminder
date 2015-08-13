@@ -8,20 +8,20 @@
  * http://www.gnu.org/licenses/gpl-3.0.txt
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
+if ( !defined( 'ABSPATH' ) ) {
+    exit;
 } // Exit if accessed directly
 
 /**
  * Implements Request Mail for YWRR plugin (Plain text)
  *
- * @class YWRR_Request_Mail
+ * @class   YWRR_Request_Mail
  * @package Yithemes
- * @since 1.0.0
- * @author Your Inspiration Themes
+ * @since   1.0.0
+ * @author  Your Inspiration Themes
  */
 
-if ( ! $order ) {
+if ( !$order ) {
 
     global $current_user;
     get_currentuserinfo();
@@ -33,7 +33,8 @@ if ( ! $order ) {
     $customer_id        = $current_user->ID;
     $billing_first_name = $current_user->user_login;
 
-} else {
+}
+else {
 
     $billing_email      = $order->billing_email;
     $order_date         = $order->order_date;
@@ -44,13 +45,13 @@ if ( ! $order ) {
 
 }
 
-$query_args = array(
-    'id'    => urlencode( base64_encode( ! empty( $customer_id ) ? $customer_id : 0 ) ),
+$query_args  = array(
+    'id'    => urlencode( base64_encode( !empty( $customer_id ) ? $customer_id : 0 ) ),
     'email' => urlencode( base64_encode( $billing_email ) )
 );
 $unsubscribe = get_option( 'ywrr_mail_unsubscribe_text' ) . ' - ' . esc_url( add_query_arg( $query_args, get_permalink( get_option( 'ywrr_unsubscribe_page_id' ) ) ) );
 
-foreach ( $item_list as $item ){
+foreach ( $item_list as $item ) {
     $review_list .= $item['name'] . ' - ' . get_permalink( $item['id'] ) . "\n";
 }
 
@@ -76,10 +77,10 @@ $replace = array(
     $days_ago
 );
 
-$mail_body = str_replace($find, $replace, get_option( 'ywrr_mail_body' ));
+$mail_body = str_replace( $find, $replace, get_option( 'ywrr_mail_body' ) );
 
 echo $email_heading . "\n\n";
 
-echo $mail_body . "\n\n\n" . $unsubscribe ;
+echo $mail_body . "\n\n\n" . $unsubscribe;
 
 echo apply_filters( 'woocommerce_email_footer_text', get_option( 'woocommerce_email_footer_text' ) );

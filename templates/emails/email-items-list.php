@@ -8,14 +8,17 @@
  * http://www.gnu.org/licenses/gpl-3.0.txt
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
+if ( !defined( 'ABSPATH' ) ) {
     exit;
 } // Exit if accessed directly
 
 $review_list = '';
 
-foreach ( $item_list as $item ){
-    $review_list .= '<li><a href="' . get_permalink( $item['id'] ) . '">' . $item['name'] . '</a></li>';
+
+foreach ( $item_list as $item ) {
+    $product_link = apply_filters( 'ywrr_product_permalink', get_permalink( $item['id'] ) );
+
+    $review_list .= '<li><a href="' . $product_link . '">' . $item['name'] . '</a></li>';
 }
 
 return '<ul>' . $review_list . '</ul>';

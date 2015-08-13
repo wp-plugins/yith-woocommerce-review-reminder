@@ -8,20 +8,21 @@
  * http://www.gnu.org/licenses/gpl-3.0.txt
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
+if ( !defined( 'ABSPATH' ) ) {
+    exit;
 } // Exit if accessed directly
 
 /**
  * Implements Request Mail for YWRR plugin (HTML)
  *
- * @class YWRR_Request_Mail
+ * @class   YWRR_Request_Mail
  * @package Yithemes
- * @since 1.0.0
- * @author Your Inspiration Themes
+ * @since   1.0.0
+ * @author  Your Inspiration Themes
  */
+global $YWRR_Review_Reminder;
 
-if ( ! $order ) {
+if ( !$order ) {
 
     global $current_user;
     get_currentuserinfo();
@@ -33,7 +34,8 @@ if ( ! $order ) {
     $customer_id        = $current_user->ID;
     $billing_first_name = $current_user->user_login;
 
-} else {
+}
+else {
 
     $billing_email      = $order->billing_email;
     $order_date         = $order->order_date;
@@ -44,54 +46,65 @@ if ( ! $order ) {
 
 }
 
-$query_args = array(
-    'id'    => urlencode( base64_encode( ! empty( $customer_id ) ? $customer_id : 0 ) ),
+$query_args  = array(
+    'id'    => urlencode( base64_encode( !empty( $customer_id ) ? $customer_id : 0 ) ),
     'email' => urlencode( base64_encode( $billing_email ) )
 );
 $unsubscribe = esc_url( add_query_arg( $query_args, get_permalink( get_option( 'ywrr_unsubscribe_page_id' ) ) ) );
 
-if( defined( 'YWRR_PREMIUM' ) ){
-    $review_list = YWRR_Review_Reminder_Premium::ywrr_email_items_list( $item_list );
-} else {
-    $review_list = include( YWRR_TEMPLATE_PATH . 'emails/email-items-list.php' );
-}
+
+$review_list = $YWRR_Review_Reminder->ywrr_email_items_list( $item_list, $template );
 
 $find = array(
-	'{customer_name}',
-	'{customer_email}',
-	'{site_title}',
-	'{order_id}',
-	'{order_date}',
-	'{order_date_completed}',
-	'{order_list}',
-	'{days_ago}'
+    '{customer_name}',
+    '{customer_email}',
+    '{site_title}',
+    '{order_id}',
+    '{order_date}',
+    '{order_date_completed}',
+    '{order_list}',
+    '{days_ago}'
 );
 
 $replace = array(
     '<b>' . $billing_first_name . '</b>',
     '<b>' . $billing_email . '</b>',
-	'<b>' . get_option( 'blogname' ) . '</b>',
+    '<b>' . get_option( 'blogname' ) . '</b>',
     '<b>' . $order_id . '</b>',
     '<b>' . $order_date . '</b>',
     '<b>' . $modified_date . '</b>',
-	$review_list,
+    $review_list,
     '<b>' . $days_ago . '</b>'
 );
 
-$mail_body = str_replace($find, $replace, get_option( 'ywrr_mail_body' ));
+$mail_body = str_replace( $find, $replace, get_option( 'ywrr_mail_body' ) );
 
-if( defined( 'YWRR_PREMIUM' ) ){
-    do_action( 'ywrr_email_header', $email_heading );
-}else{
-    do_action( 'woocommerce_email_header', $email_heading );
-} ?>
 
-<p><?php echo wpautop( $mail_body ); ?></p>
+if ( defined( 'YITH_WCET_PREMIUM' ) && get_option( 'ywrr_mail_template_enable' ) == 'yes' ) {
+
+    do_action( 'yith_wcet_email_header', $email_heading, 'yith-review-reminder' );
+
+}
+else {
+
+    do_action( 'ywrr_email_header', $email_heading, $template );
+
+}
+
+?>
+
+    <p><?php echo wpautop( $mail_body ); ?></p>
 
 <?php
-if( defined( 'YWRR_PREMIUM' ) ) {
-    do_action( 'ywrr_email_footer', $unsubscribe );
-}else{
-    echo '<p><a href="' . $unsubscribe .  '">' . get_option( 'ywrr_mail_unsubscribe_text' ) . '</a></p>';
-    do_action( 'woocommerce_email_footer' );
+
+if ( defined( 'YITH_WCET_PREMIUM' ) && get_option( 'ywrr_mail_template_enable' ) == 'yes' ) {
+
+    do_action( 'yith_wcet_email_footer', 'yith-review-reminder', array( '<a class="ywrr-unsubscribe-link" href="' . $unsubscribe . '">' . get_option( 'ywrr_mail_unsubscribe_text' ) . '</a>' ) );
+
 }
+else {
+
+    do_action( 'ywrr_email_footer', $unsubscribe, $template );
+
+}
+

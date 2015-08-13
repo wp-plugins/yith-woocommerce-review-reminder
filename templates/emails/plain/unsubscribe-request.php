@@ -8,22 +8,22 @@
  * http://www.gnu.org/licenses/gpl-3.0.txt
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
+if ( !defined( 'ABSPATH' ) ) {
+    exit;
 } // Exit if accessed directly
 
 /**
  * Implements Unsubscribe Mail for YWRR plugin (Plain Text)
  *
- * @class YWRR_Unsubscribe_Mail
+ * @class   YWRR_Unsubscribe_Mail
  * @package Yithemes
- * @since 1.0.0
- * @author Your Inspiration Themes
+ * @since   1.0.0
+ * @author  Your Inspiration Themes
  */
 
 echo $email_heading . "\n\n";
 
-printf( __( 'You have received an unsubscribe request. Their email address is as follows: %s','ywrr' ), $customer_mail );
+printf( __( 'You have received a request for unsubscription. Email address is the following: %s', 'ywrr' ), $customer_mail );
 
 echo apply_filters( 'woocommerce_email_footer_text', get_option( 'woocommerce_email_footer_text' ) );
 

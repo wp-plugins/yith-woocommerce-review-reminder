@@ -8,15 +8,15 @@
  * http://www.gnu.org/licenses/gpl-3.0.txt
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
+if ( !defined( 'ABSPATH' ) ) {
     exit;
 } // Exit if accessed directly
 
 return array(
     'blocklist' => array(
-        'review_reminder_blocklist_unsubscribed_users'  => array(
-            'type'      => 'custom_tab',
-            'action'    => 'ywrr_blocklist'
+        'review_reminder_blocklist_unsubscribed_users' => array(
+            'type'   => 'custom_tab',
+            'action' => 'ywrr_blocklist'
         )
     )
 );
