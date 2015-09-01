@@ -28,14 +28,6 @@ $custom_template = !defined( 'YWRR_PREMIUM' ) ? '' : array(
     'id'      => 'ywrr_mail_template'
 );
 
-$email_templates_enable = !defined( 'YWRR_PREMIUM' ) && !defined( 'YITH_WCET_PREMIUM' ) ? '' : array(
-    'name'    => __( 'Use YITH WooCommerce Email Templates', 'ywrr' ),
-    'type'    => 'checkbox',
-    'desc'    => '',
-    'id'      => 'ywrr_mail_template_enable',
-    'default' => 'no',
-);
-
 $item_link = !defined( 'YWRR_PREMIUM' ) ? '' : array(
     'name'    => __( 'Set Destination', 'ywrr' ),
     'type'    => 'select',
@@ -56,6 +48,13 @@ $item_link_hash = !defined( 'YWRR_PREMIUM' ) ? '' : array(
     'id'   => 'ywrr_mail_item_link_hash',
 );
 
+$email_templates_enable = ( defined( 'YWRR_PREMIUM' ) && defined( 'YITH_WCET_PREMIUM' ) ) ? array(
+    'name'    => __( 'Use YITH WooCommerce Email Templates', 'ywrr' ),
+    'type'    => 'checkbox',
+    'desc'    => '',
+    'id'      => 'ywrr_mail_template_enable',
+    'default' => 'no',
+) : '';
 
 $videobox = defined( 'YWRR_PREMIUM' ) ? '' : array(
     'name'    => __( 'Upgrade to the PREMIUM VERSION', 'ywrr' ),
@@ -87,7 +86,6 @@ return array(
             'name' => __( 'General Settings', 'ywrr' ),
             'type' => 'title',
             'desc' => '',
-            'id'   => 'ywrr_general_title',
         ),
         'review_reminder_general_enable_plugin' => array(
             'name'    => __( 'Enable YITH WooCommerce Product Countdown', 'ywrr' ),
@@ -98,13 +96,11 @@ return array(
         ),
         'review_reminder_general_end'           => array(
             'type' => 'sectionend',
-            'id'   => 'ywrr_general_end'
         ),
         'review_reminder_mail_section_title'    => array(
             'name' => __( 'Mail Settings', 'ywrr' ),
             'type' => 'title',
             'desc' => '',
-            'id'   => 'ywrr_mail_settings_title',
         ),
         'review_reminder_mail_type'             => array(
             'name'    => __( 'Email type', 'ywrr' ),
@@ -173,7 +169,6 @@ Much appreciated,
         ),
         'review_reminder_mail_section_end'      => array(
             'type' => 'sectionend',
-            'id'   => 'ywrr_mail_settings_end'
         )
     )
 

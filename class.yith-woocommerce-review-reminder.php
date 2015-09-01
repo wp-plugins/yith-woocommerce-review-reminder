@@ -112,6 +112,8 @@ if ( !class_exists( 'YWRR_Review_Reminder' ) ) {
                 add_filter( 'set-screen-option', 'YWRR_Blocklist_Table::set_options', 10, 3 );
 
                 add_action( 'woocommerce_admin_field_customtext', 'YWRR_Custom_Textarea::output' );
+                add_filter( 'woocommerce_admin_settings_sanitize_option', array( $this, 'save_ywrr_textarea' ), 10, 3 );
+
                 add_action( 'ywrr_blocklist', 'YWRR_Blocklist_Table::output' );
                 add_action( 'current_screen', 'YWRR_Blocklist_Table::add_options' );
                 add_action( 'admin_notices', array( $this, 'ywrr_protect_unsubscribe_page_notice' ) );
@@ -159,7 +161,7 @@ if ( !class_exists( 'YWRR_Review_Reminder' ) ) {
             include_once( 'includes/class-ywrr-schedule.php' );
 
             if ( is_admin() ) {
-                include_once( 'includes/admin/class-yith-custom-table.php' );
+                include_once( 'includes/admin/class-yith-ywrr-custom-table.php' );
                 include_once( 'templates/admin/custom-textarea.php' );
                 include_once( 'templates/admin/blocklist-table.php' );
             }
@@ -167,6 +169,29 @@ if ( !class_exists( 'YWRR_Review_Reminder' ) ) {
             if ( !is_admin() || defined( 'DOING_AJAX' ) ) {
                 include_once( 'includes/class-ywrr-form-handler.php' );
             }
+
+        }
+
+        /**
+         * Saves custom textarea content
+         *
+         * @since   1.0.6
+         *
+         * @param $value
+         * @param $option
+         * @param $raw_value
+         *
+         * @return string
+         * @author  Alberto ruggiero
+         */
+        public function save_ywrr_textarea( $value, $option, $raw_value ) {
+
+            if ( $option['type'] == 'customtext' ) {
+                $value = wp_kses_post( trim( $raw_value ) );
+
+            }
+
+            return $value;
 
         }
 
@@ -447,74 +472,6 @@ if ( !class_exists( 'YWRR_Review_Reminder' ) ) {
                 wp_redirect( $error_url );
                 exit();
             }
-        }
-
-        /**
-         * Creates database table for blocklist e scheduling
-         *
-         * @since   1.0.0
-         * @return  void
-         * @author  Alberto Ruggiero
-         */
-        static function ywrr_create_tables() {
-            global $wpdb;
-
-            $wpdb->hide_errors();
-
-            $collate = '';
-
-            if ( $wpdb->has_cap( 'collation' ) ) {
-                if ( !empty( $wpdb->charset ) ) {
-                    $collate .= "DEFAULT CHARACTER SET $wpdb->charset";
-                }
-                if ( !empty( $wpdb->collate ) ) {
-                    $collate .= " COLLATE $wpdb->collate";
-                }
-            }
-
-            require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
-
-            $ywrr_tables = "
-            CREATE TABLE {$wpdb->prefix}ywrr_email_blocklist (
-              id int NOT NULL AUTO_INCREMENT,
-              customer_email longtext NOT NULL,
-              customer_id bigint(20) NOT NULL DEFAULT 0,
-              PRIMARY KEY (id)
-            ) $collate;
-            CREATE TABLE {$wpdb->prefix}ywrr_email_schedule (
-              id int NOT NULL AUTO_INCREMENT,
-              order_id bigint(20) NOT NULL,
-              order_date date NOT NULL DEFAULT '0000-00-00',
-              scheduled_date date NOT NULL DEFAULT '0000-00-00',
-              request_items longtext NOT NULL DEFAULT '',
-              mail_status varchar(15) NOT NULL DEFAULT 'pending',
-              PRIMARY KEY (id)
-            ) $collate;
-            ";
-
-            dbDelta( $ywrr_tables );
-        }
-
-        /**
-         * Creates a cron job to handle daily mail send
-         *
-         * @since   1.0.0
-         * @return  void
-         * @author  Alberto Ruggiero
-         */
-        static function ywrr_create_schedule_job() {
-            wp_schedule_event( time(), 'daily', 'ywrr_daily_send_mail_job' );
-        }
-
-        /**
-         * Removes cron job
-         *
-         * @since   1.0.0
-         * @return  void
-         * @author  Alberto Ruggiero
-         */
-        static function ywrr_create_unschedule_job() {
-            wp_clear_scheduled_hook( 'ywrr_daily_send_mail_job' );
         }
 
         /**
