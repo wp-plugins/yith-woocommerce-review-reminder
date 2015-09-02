@@ -34,7 +34,7 @@ class YWRR_Blocklist_Table {
 
         global $wpdb;
 
-        $table = new YITH_Custom_Table( array(
+        $table = new YITH_YWRR_Custom_Table( array(
                                             'singular' => __( 'customer', 'ywrr' ),
                                             'plural'   => __( 'customers', 'ywrr' )
                                         ) );
