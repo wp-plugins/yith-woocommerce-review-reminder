@@ -88,7 +88,7 @@ return array(
             'desc' => '',
         ),
         'review_reminder_general_enable_plugin' => array(
-            'name'    => __( 'Enable YITH WooCommerce Product Countdown', 'ywrr' ),
+            'name'    => __( 'Enable YITH WooCommerce Review Reminder', 'ywrr' ),
             'type'    => 'checkbox',
             'desc'    => '',
             'id'      => 'ywrr_enable_plugin',

@@ -8,15 +8,16 @@
  * http://www.gnu.org/licenses/gpl-3.0.txt
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
+if ( !defined( 'ABSPATH' ) ) {
     exit;
 } // Exit if accessed directly
 
-if ( ! class_exists( 'WP_List_Table' ) ) {
+if ( !class_exists( 'WP_List_Table' ) ) {
     require_once( ABSPATH . 'wp-admin/includes/class-wp-list-table.php' );
 }
 
-if ( ! class_exists( 'YITH_Custom_Table' ) ) {
+if ( !class_exists( 'YITH_Custom_Table' ) ) {
+
     /**
      * Shows a custom table
      *
@@ -43,50 +44,68 @@ if ( ! class_exists( 'YITH_Custom_Table' ) ) {
          * @author  Alberto Ruggiero
          * @see     WP_List_Table
          */
-        function __construct( $args ) {
+        public function __construct( $args ) {
             global $status, $page;
 
             parent::__construct( $args );
         }
 
         /**
+         * Get a list of columns.
+         *
+         * @since   1.0.0
+         * @return  array
+         * @author  Alberto Ruggiero
+         */
+        public function get_columns() {
+
+            return $this->options['view_columns'];
+
+        }
+
+        /**
          * Default column renderer
+         *
+         * @since   1.0.0
          *
          * @param   $item        array the row
          * @param   $column_name string the column name
          *
-         * @since   1.0.0
-         * @author  Alberto Ruggiero
          * @return  string
+         * @author  Alberto Ruggiero
          */
-        function column_default( $item, $column_name ) {
+        protected function column_default( $item, $column_name ) {
             return $item[$column_name];
         }
 
         /**
          * Checkbox column renderer
          *
+         * @since   1.0.0
+         *
          * @param   $item array the row
          *
-         * @since   1.0.0
-         * @author  Alberto Ruggiero
          * @return  string
+         * @author  Alberto Ruggiero
+         *
          */
-        function column_cb( $item ) {
+        protected function column_cb( $item ) {
+
             return sprintf(
                 '<input type="checkbox" name="id[]" value="%s" />',
                 $item[$this->options['key_column']]
             );
+
         }
 
         /**
          * Return array of bulk options
          *
          * @since   1.0.0
-         * @author  Alberto Ruggiero
          * @return  array
+         * @author  Alberto Ruggiero
          */
-        function get_bulk_actions() {
+        protected function get_bulk_actions() {
             return $this->options['bulk_actions']['actions'];
         }
 
@@ -94,22 +113,23 @@ if ( ! class_exists( 'YITH_Custom_Table' ) ) {
          * Return array of sortable columns
          *
          * @since   1.0.0
+         * @return  array
          * @author  Alberto Ruggiero
-         * @return array
          */
-        function get_sortable_columns()
-        {
+        protected function get_sortable_columns() {
+
             return $this->options['sortable_columns'];
+
         }
 
         /**
          * Processes bulk actions
          *
          * @since   1.0.0
-         * @author  Alberto Ruggiero
          * @return  void
+         * @author  Alberto Ruggiero
          */
-        function process_bulk_action() {
+        public function process_bulk_action() {
 
             $action = 'function_' . $this->current_action();
 
@@ -125,10 +145,10 @@ if ( ! class_exists( 'YITH_Custom_Table' ) ) {
          * It will get rows from database and prepare them to be showed in table
          *
          * @since   1.0.0
-         * @author  Alberto Ruggiero
          * @return  void
+         * @author  Alberto Ruggiero
          */
-        function prepare_items() {
+        public function prepare_items() {
             global $wpdb;
 
             $select_table   = $this->options['select_table'];
@@ -140,7 +160,7 @@ if ( ! class_exists( 'YITH_Custom_Table' ) ) {
             $count_table = $this->options['count_table'];
             $count_where = $this->options['count_where'] != '' ? 'WHERE ' . $this->options['count_where'] : '';
 
-            $view_columns     = $this->options['view_columns'];
+            $view_columns     = $this->get_columns();
             $hidden_columns   = $this->options['hidden_columns'];
             $sortable_columns = $this->get_sortable_columns();
 
@@ -158,7 +178,7 @@ if ( ! class_exists( 'YITH_Custom_Table' ) ) {
             $orderby = ( isset( $_GET['orderby'] ) && in_array( $_GET['orderby'], array_keys( $this->get_sortable_columns() ) ) ) ? $_GET['orderby'] : $this->options['select_order'];
 
             $order_dir = ( $this->options['select_order_dir'] != '' ) ? $this->options['select_order_dir'] : 'asc';
-            $order   = ( isset( $_GET['order'] ) && in_array( $_GET['order'], array( 'asc', 'desc' ) ) ) ? $_GET['order'] : $order_dir;
+            $order     = ( isset( $_GET['order'] ) && in_array( $_GET['order'], array( 'asc', 'desc' ) ) ) ? $_GET['order'] : $order_dir;
 
             $this->items = $wpdb->get_results( $wpdb->prepare( "
                         SELECT $select_columns
@@ -170,21 +190,21 @@ if ( ! class_exists( 'YITH_Custom_Table' ) ) {
                         ", $select_limit, $paged ), ARRAY_A );
 
             $this->set_pagination_args( array(
-                'total_items' => $total_items,
-                'per_page'    => $select_limit,
-                'total_pages' => ceil( $total_items / $select_limit )
-            ) );
+                                            'total_items' => $total_items,
+                                            'per_page'    => $select_limit,
+                                            'total_pages' => ceil( $total_items / $select_limit )
+                                        ) );
         }
 
         /**
          * Generates the columns for a single row of the table; overrides original class function
          *
+         * @since   1.0.0
+         *
          * @param   $item array the row
          *
-         * @since   1.0.0
-         * @author  Alberto Ruggiero
          * @return  string
-         * @see     WP_List_Table
+         * @author  Alberto Ruggiero
          */
         protected function single_row_columns( $item ) {
             list( $columns, $hidden ) = $this->get_column_info();

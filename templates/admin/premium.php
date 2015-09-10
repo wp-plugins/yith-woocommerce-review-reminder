@@ -225,30 +225,28 @@
         <div class="landing-container">
             <div class="premium-cta">
                 <p>
-                    Upgrade to the <span class="highlight">premium version</span>
-                    of <span class="highlight">YITH WooCommerce Review Reminder</span> to benefit from all features!
+                    <?php echo sprintf(__('Upgrade to the %1$spremium version%2$s of %1$sYITH WooCommerce Review Reminder%2$s to benefit from all features!','ywrr'),'<span class="highlight">','</span>');?>
                 </p>
                 <a href="http://yithemes.com/themes/plugins/yith-woocommerce-review-reminder/" target="_blank" class="premium-cta-button button btn">
-                    <span class="highlight">UPGRADE</span>
-                    <span>to the premium version</span>
+                    <?php echo sprintf(__('%1$sUPGRADE%2$s %3$sto the premium%2$s','ywrr'),'<span class="highlight">','</span>','<span>');?>
                 </a>
             </div>
         </div>
     </div>
     <div class="section section-even clear" style="background: url(<?php echo YWRR_ASSETS_URL ?>/images/01-bg.png) no-repeat #fff; background-position: 85% 75%">
-        <h1>Premium Features</h1>
+        <h1><?php _e('Premium Features','ywrr');?></h1>
 
         <div class="landing-container">
             <div class="col-1">
-                <img src="<?php echo YWRR_ASSETS_URL ?>/images/01.png" alt="Review Title" />
+                <img src="<?php echo YWRR_ASSETS_URL ?>/images/01.png" alt="<?php _e('SELECTION TO REVIEW','ywrr');?>" />
             </div>
             <div class="col-2">
                 <div class="section-title">
-                    <img src="<?php echo YWRR_ASSETS_URL ?>/images/01-icon.png" alt="Review Title" />
+                    <img src="<?php echo YWRR_ASSETS_URL ?>/images/01-icon.png" alt=icon-01 />
 
-                    <h2>SELECTION OF THE PRODUCTS TO REVIEW</h2>
+                    <h2><?php _e('SELECTION OF THE PRODUCTS TO REVIEW','ywrr');?></h2>
                 </div>
-                <p>Choose to ask users the review of every purchased product, or only a part of them.</p>
+                <p><?php echo sprintf (__('%1$sChoose to ask users%2$s the review of every purchased product, or only a part of them.','ywrr'),'<b>','</b>');?></p>
             </div>
         </div>
     </div>
@@ -256,29 +254,29 @@
         <div class="landing-container">
             <div class="col-2">
                 <div class="section-title">
-                    <img src="<?php echo YWRR_ASSETS_URL ?>/images/02-icon.png" alt="Attachment List" />
+                    <img src="<?php echo YWRR_ASSETS_URL ?>/images/02-icon.png" alt="icon-02" />
 
-                    <h2>DEADLINE FOR EMAIL DISPATCHING</h2>
+                    <h2><?php _e('DEADLINE FOR EMAIL DISPATCHING','ywrr');?></h2>
                 </div>
-                <p>Set how many days have to pass before sending the email to request a review, after the order has been marked as "Completed".</p>
+                <p><?php echo sprintf (__('Set %1$show many days have to pass%2$s before sending the email to request a review, after the order has been marked as "Completed".','ywrr'),'<b>','</b>');?></p>
             </div>
             <div class="col-1">
-                <img src="<?php echo YWRR_ASSETS_URL ?>/images/02.png" alt="Attachment List" />
+                <img src="<?php echo YWRR_ASSETS_URL ?>/images/02.png" alt="<?php _e('DEADLINE','ywrr');?>" />
             </div>
         </div>
     </div>
     <div class="section section-even clear" style="background: url(<?php echo YWRR_ASSETS_URL ?>/images/03-bg.png) no-repeat #fff; background-position: 85% 100%">
         <div class="landing-container">
             <div class="col-1">
-                <img src="<?php echo YWRR_ASSETS_URL ?>/images/03.png" alt="Vote the review" />
+                <img src="<?php echo YWRR_ASSETS_URL ?>/images/03.png" alt="<?php _e('BLOCKLIST','ywrr');?>" />
             </div>
             <div class="col-2">
                 <div class="section-title">
-                    <img src="<?php echo YWRR_ASSETS_URL ?>/images/03-icon.png" alt="Vote the review" />
+                    <img src="<?php echo YWRR_ASSETS_URL ?>/images/03-icon.png" alt="icon-03" />
 
-                    <h2>BLOCKLIST</h2>
+                    <h2><?php _e('BLOCKLIST','ywrr');?></h2>
                 </div>
-                <p>Add to the blocklist all the users' emails that don't want to review any product of your e-commerce.</p>
+                <p><?php echo sprintf (__('%1$sAdd to the blocklist%2$s all the users emails that don\'t want to review any product of your e-commerce.','ywrr'),'<b>','</b>');?></p>
             </div>
         </div>
     </div>
@@ -286,14 +284,44 @@
         <div class="landing-container">
             <div class="col-2">
                 <div class="section-title">
-                    <img src="<?php echo YWRR_ASSETS_URL ?>/images/04-icon.png" alt="Number" />
+                    <img src="<?php echo YWRR_ASSETS_URL ?>/images/04-icon.png" alt="icon-04" />
 
-                    <h2>EMAIL TEMPLATE</h2>
+                    <h2><?php _e('EMAIL TEMPLATE','ywrr');?></h2>
                 </div>
-                <p>Select the layout you want for your email choosing among the four possibilities we offer you.</p>
+                <p><?php echo sprintf (__('Select the %1$slayout you want%2$s for your email choosing among the four possibilities we offer you.','ywrr'),'<b>','</b>');?></p>
             </div>
             <div class="col-1">
-                <img src="<?php echo YWRR_ASSETS_URL ?>/images/04.png" alt="Number" />
+                <img src="<?php echo YWRR_ASSETS_URL ?>/images/04.png" alt="<?php _e('EMAIL TEMPLATE','ywrr');?>" />
+            </div>
+        </div>
+    </div>
+    <div class="section section-even clear" style="background: url(<?php echo YWRR_ASSETS_URL ?>/images/05-bg.png) no-repeat #fff; background-position: 85% 75%">
+        <div class="landing-container">
+            <div class="col-1">
+                <img src="<?php echo YWRR_ASSETS_URL ?>/images/05.png" alt="<?php _e('MANDRILL','ywrr');?>" />
+            </div>
+            <div class="col-2">
+                <div class="section-title">
+                    <img src="<?php echo YWRR_ASSETS_URL ?>/images/05-icon.png" alt=icon-05 />
+
+                    <h2><?php _e('USE MANDRILL TO MANAGE YOUR EMAILS','ywrr');?></h2>
+                </div>
+                <p><?php echo sprintf (__('%1$sMake creation of custom%2$s reminders automatic in a few clicks.','ywrr'),'<b>','</b>');?></p>
+            </div>
+        </div>
+    </div>
+    <div class="section section-odd clear" style="background: url(<?php echo YWRR_ASSETS_URL ?>/images/06-bg.png) no-repeat #f1f1f1; background-position: 15% 100%">
+        <div class="landing-container">
+            <div class="col-2">
+                <div class="section-title">
+                    <img src="<?php echo YWRR_ASSETS_URL ?>/images/06-icon.png" alt="icon-06" />
+
+                    <h2><?php _e('SCHEDULE LIST','ywrr');?></h2>
+                </div>
+                <p><?php echo sprintf (__('See all reminders you have scheduled %1$s(past and present)%2$s in one tab only and delete them from this page without having to move anywhere else.','ywrr'),'<b>','</b>');?></p>
+            </div>
+            <div class="col-1">
+                <img src="<?php echo YWRR_ASSETS_URL ?>/images/06.png" alt="<?php _e('SCHEDULE LIST','ywrr');?>" />
             </div>
         </div>
     </div>
@@ -301,14 +329,13 @@
         <div class="landing-container">
             <div class="premium-cta">
                 <p>
-                    Upgrade to the <span class="highlight">premium version</span>
-                    of <span class="highlight">YITH WooCommerce Review Reminder</span> to benefit from all features!
+                    <?php echo sprintf (__('Upgrade to the %1$spremium version%2$s of %1$sYITH WooCommerce Review Reminder%2$s to benefit from all features!','ywrr'),'<span class="highlight">','</span>');?>
                 </p>
                 <a href="http://yithemes.com/themes/plugins/yith-woocommerce-review-reminder/" target="_blank" class="premium-cta-button button btn">
-                    <span class="highlight">UPGRADE</span>
-                    <span>to the premium version</span>
+                    <?php echo sprintf (__('%1$sUPGRADE%2$s %3$sto the premium version%2$s','ywrr'),'<span class="highlight">','</span>','<span>');?>
                 </a>
             </div>
         </div>
     </div>
+
 </div>

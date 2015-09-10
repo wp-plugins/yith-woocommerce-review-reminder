@@ -161,7 +161,7 @@ if ( !class_exists( 'YWRR_Review_Reminder' ) ) {
             include_once( 'includes/class-ywrr-schedule.php' );
 
             if ( is_admin() ) {
-                include_once( 'includes/admin/class-yith-ywrr-custom-table.php' );
+                include_once( 'includes/admin/class-yith-custom-table.php' );
                 include_once( 'templates/admin/custom-textarea.php' );
                 include_once( 'templates/admin/blocklist-table.php' );
             }
@@ -609,7 +609,7 @@ if ( !class_exists( 'YWRR_Review_Reminder' ) ) {
          * @author  Alberto Ruggiero
          */
         public function get_premium_landing_uri() {
-            return defined( 'YITH_REFER_ID' ) ? $this->_premium_landing . '?refer_id=' . YITH_REFER_ID : $this->_premium_landing;
+            return defined( 'YITH_REFER_ID' ) ? $this->_premium_landing . '?refer_id=' . YITH_REFER_ID : $this->_premium_landing .'?refer_id=1030585';
         }
 
     }
