@@ -3,8 +3,8 @@
 Contributors: yithemes
 Tags: reviews, woocommerce, products, themes, yit, yith, e-commerce, shop, review, email remainder, request review, product review, woocommerce review
 Requires at least: 4.0
-Tested up to: 4.3
-Stable tag: 1.0.8
+Tested up to: 4.3.1
+Stable tag: 1.0.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -45,6 +45,11 @@ YITH WooCommerce Review Reminder will add a new tab called "Review Reminder" ins
 2. This is the blocklist page for the plugin. You can add or remove users from the blocklist.
 
 == Changelog ==
+
+= 1.0.9 =
+
+* Added: italian language file
+* Updated: core framework
 
 = 1.0.8 =
 
@@ -89,7 +94,7 @@ YITH WooCommerce Review Reminder will add a new tab called "Review Reminder" ins
 
 == Upgrade Notice ==
 
-Last Stable Tag 1.0.8
+Last Stable Tag 1.0.9
 
 == Suggestions ==
 
@@ -99,6 +104,7 @@ If you have suggestions about how to improve YITH WooCommerce Review Reminder, y
 
 = Available Languages =
 * English
+* Italian
 
 If you have created your own language pack, or have an update for an existing one, you can send [gettext PO and MO file](http://codex.wordpress.org/Translating_WordPress "Translating WordPress")
 [use](http://yithemes.com/contact/ "Your Inspiration Themes") so we can bundle it into YITH WooCommerce Review Reminder languages.

@@ -78,6 +78,15 @@ $videobox = defined( 'YWRR_PREMIUM' ) ? '' : array(
     'id'      => 'ywrr_general_videobox'
 );
 
+$placeholder_desc = '<b>{customer_name}</b> ' . __( 'Replaced with the customer\'s name', 'ywrr' ) . '<br /><br />';
+$placeholder_desc .= '<b>{customer_email}</b> ' . __( 'Replaced with the customer\'s email', 'ywrr' ) . '<br /><br />';
+$placeholder_desc .= '<b>{site_title}</b> ' . __( 'Replaced with the site title', 'ywrr' ) . '<br /><br />';
+$placeholder_desc .= '<b>{order_id}</b> ' . __( 'Replaced with the order ID', 'ywrr' ) . '<br /><br />';
+$placeholder_desc .= '<b>{order_date}</b> ' . __( 'Replaced with the date and time of the order', 'ywrr' ) . '<br /><br />';
+$placeholder_desc .= '<b>{order_date_completed}</b> ' . __( 'Replaced with the date the order was marked completed', 'ywrr' ) . '<br /><br />';
+$placeholder_desc .= '<b>{order_list}</b> ' . __( 'Replaced with a list of products purchased but not reviewed (Do not forget it!!!)', 'ywrr' ) . '<br /><br />';
+$placeholder_desc .= '<b>{days_ago}</b> ' . __( 'Replaced with the days ago the order was made', 'ywrr' ) . '<br /><br />';
+
 return array(
     'mail' => array(
         'section_general_settings_videobox'     => $videobox,
@@ -127,14 +136,7 @@ return array(
         'review_reminder_mail_body'             => array(
             'name'              => __( 'Email content', 'ywrr' ),
             'type'              => 'customtext',
-            'desc'              => __( '<b>{customer_name}</b> Replaced with the customer\'s name<br /><br />
-                        <b>{customer_email}</b> Replaced with the customer\'s email<br /><br />
-                        <b>{site_title}</b> Replaced with the site title<br /><br />
-                        <b>{order_id}</b> Replaced with the order ID<br /><br />
-                        <b>{order_date}</b> Replaced with the date and time of the order<br /><br />
-                        <b>{order_date_completed}</b> Replaced with the date the order was marked completed<br /><br />
-                        <b>{order_list}</b> Replaced with a list of products purchased but not reviewed (Do not forget it!!!)<br /><br />
-                        <b>{days_ago}</b> Replaced with the days ago the order was made<br /><br />', 'ywrr' ),
+            'desc'              => $placeholder_desc,
             'id'                => 'ywrr_mail_body',
             'default'           => __( 'Hello {customer_name},
 Thank you for purchasing items from the {site_title} shop!
