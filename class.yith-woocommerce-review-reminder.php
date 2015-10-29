@@ -92,7 +92,7 @@ if ( !class_exists( 'YWRR_Review_Reminder' ) ) {
             );
 
             // Load Plugin Framework
-            add_action( 'after_setup_theme', array( $this, 'plugin_fw_loader' ), 1 );
+            add_action( 'plugins_loaded', array( $this, 'plugin_fw_loader' ), 12 );
 
             //Add action links
             add_filter( 'plugin_action_links_' . plugin_basename( YWRR_DIR . '/' . basename( YWRR_FILE ) ), array(
@@ -529,8 +529,12 @@ if ( !class_exists( 'YWRR_Review_Reminder' ) ) {
          * @author  Andrea Grillo <andrea.grillo@yithemes.com>
          */
         public function plugin_fw_loader() {
-            if ( !defined( 'YIT' ) || !defined( 'YIT_CORE_PLUGIN' ) ) {
-                require_once( 'plugin-fw/yit-plugin.php' );
+            if ( !defined( 'YIT_CORE_PLUGIN' ) ) {
+                global $plugin_fw_data;
+                if ( !empty( $plugin_fw_data ) ) {
+                    $plugin_fw_file = array_shift( $plugin_fw_data );
+                    require_once( $plugin_fw_file );
+                }
             }
         }
 
@@ -609,7 +613,7 @@ if ( !class_exists( 'YWRR_Review_Reminder' ) ) {
          * @author  Alberto Ruggiero
          */
         public function get_premium_landing_uri() {
-            return defined( 'YITH_REFER_ID' ) ? $this->_premium_landing . '?refer_id=' . YITH_REFER_ID : $this->_premium_landing .'?refer_id=1030585';
+            return defined( 'YITH_REFER_ID' ) ? $this->_premium_landing . '?refer_id=' . YITH_REFER_ID : $this->_premium_landing . '?refer_id=1030585';
         }
 
     }
