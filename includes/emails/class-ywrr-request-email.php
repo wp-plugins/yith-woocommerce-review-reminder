@@ -56,7 +56,7 @@ if ( !class_exists( 'YWRR_Request_Mail' ) ) {
          */
         public function __construct() {
 
-            $this->title          = __( 'Review reminder', 'ywrr' );
+            $this->title          = __( 'Review reminder', 'yith-woocommerce-review-reminder' );
             $this->template_html  = 'emails/review-request.php';
             $this->template_plain = 'emails/plain/review-request.php';
 

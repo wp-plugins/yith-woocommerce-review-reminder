@@ -23,7 +23,7 @@ if ( !defined( 'ABSPATH' ) ) {
 
 do_action( 'woocommerce_email_header', $email_heading ); ?>
 
-    <p><?php printf( __( 'You have received a request for unsubscription. Email address is the following: %s', 'ywrr' ), '<b>' . $customer_mail . '</b>' ) ?></p>
+    <p><?php printf( __( 'You have received a request for unsubscription. Email address is the following: %s', 'yith-woocommerce-review-reminder' ), '<b>' . $customer_mail . '</b>' ) ?></p>
 
 <?php
 

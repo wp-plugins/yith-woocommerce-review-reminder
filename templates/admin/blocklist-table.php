@@ -35,8 +35,8 @@ class YWRR_Blocklist_Table {
         global $wpdb;
 
         $table = new YITH_Custom_Table( array(
-                                            'singular' => __( 'customer', 'ywrr' ),
-                                            'plural'   => __( 'customers', 'ywrr' )
+                                            'singular' => __( 'customer', 'yith-woocommerce-review-reminder' ),
+                                            'plural'   => __( 'customers', 'yith-woocommerce-review-reminder' )
                                         ) );
 
         $table->options = array(
@@ -59,8 +59,8 @@ class YWRR_Blocklist_Table {
             'key_column'       => 'id',
             'view_columns'     => array(
                 'cb'             => '<input type="checkbox" />',
-                'name'           => __( 'Customer', 'ywrr' ),
-                'customer_email' => __( 'Email', 'ywrr' )
+                'name'           => __( 'Customer', 'yith-woocommerce-review-reminder' ),
+                'customer_email' => __( 'Email', 'yith-woocommerce-review-reminder' )
             ),
             'hidden_columns'   => array(),
             'sortable_columns' => array(
@@ -71,7 +71,7 @@ class YWRR_Blocklist_Table {
                 'column_name' => function ( $item, $me ) {
                     switch ( $item['customer_id'] ) {
                         case 0:
-                            $customer_name = __( 'Unregistered User', 'ywrr' );
+                            $customer_name = __( 'Unregistered User', 'yith-woocommerce-review-reminder' );
                             break;
                         default:
 
@@ -92,7 +92,7 @@ class YWRR_Blocklist_Table {
                     $delete_url = esc_url( add_query_arg( $query_args, admin_url( 'admin.php' ) ) );
 
                     $actions = array(
-                        'delete' => '<a href="' . $delete_url . '">' . __( 'Delete', 'ywrr' ) . '</a>',
+                        'delete' => '<a href="' . $delete_url . '">' . __( 'Delete', 'yith-woocommerce-review-reminder' ) . '</a>',
                     );
 
                     return sprintf( '%s %s', '<strong>' . $customer_name . '</strong>', $me->row_actions( $actions ) );
@@ -100,7 +100,7 @@ class YWRR_Blocklist_Table {
             ),
             'bulk_actions'     => array(
                 'actions'   => array(
-                    'delete' => __( 'Delete', 'ywrr' ),
+                    'delete' => __( 'Delete', 'yith-woocommerce-review-reminder' ),
                 ),
                 'functions' => array(
                     'function_delete' => function () {
@@ -131,7 +131,7 @@ class YWRR_Blocklist_Table {
         $blocklist_url = esc_url( add_query_arg( $query_args, admin_url( 'admin.php' ) ) );
 
         if ( 'delete' === $table->current_action() ) {
-            $message = sprintf( __( 'Items deleted: %d', 'ywrr' ), count( $_GET['id'] ) );
+            $message = sprintf( __( 'Items deleted: %d', 'yith-woocommerce-review-reminder' ), count( $_GET['id'] ) );
         }
 
         if ( !empty( $_POST['nonce'] ) && wp_verify_nonce( $_POST['nonce'], basename( __FILE__ ) ) ) {
@@ -145,20 +145,20 @@ class YWRR_Blocklist_Table {
 
                 try {
                     YWRR_Blocklist()->add_to_blocklist( $customer_id, $customer_email );
-                    $message = sprintf( __( 'User %s added successfully', 'ywrr' ), '<b>' . $customer_email . '</b>' );
+                    $message = sprintf( __( 'User %s added successfully', 'yith-woocommerce-review-reminder' ), '<b>' . $customer_email . '</b>' );
                 } catch ( Exception $e ) {
-                    $notice = __( 'An error has occurred', 'ywrr' );
+                    $notice = __( 'An error has occurred', 'yith-woocommerce-review-reminder' );
                 }
             }
             else {
-                $notice = sprintf( __( 'User %s already unsubscribed', 'ywrr' ), '<b>' . $customer_email . '</b>' );
+                $notice = sprintf( __( 'User %s already unsubscribed', 'yith-woocommerce-review-reminder' ), '<b>' . $customer_email . '</b>' );
             }
         }
 
         ?>
         <div class="wrap">
             <h2>
-                <?php _e( 'Blocklist', 'ywrr' );
+                <?php _e( 'Blocklist', 'yith-woocommerce-review-reminder' );
                 if ( empty( $_GET['action'] ) || 'addnew' !== $_GET['action'] ) : ?>
                     <?php $query_args = array(
                         'page'   => $_GET['page'],
@@ -167,7 +167,7 @@ class YWRR_Blocklist_Table {
                     );
                     $add_form_url     = esc_url( add_query_arg( $query_args, admin_url( 'admin.php' ) ) );
                     ?>
-                    <a class="add-new-h2" href="<?php echo $add_form_url ?>"><?php _e( 'Add New', 'ywrr' ); ?></a>
+                    <a class="add-new-h2" href="<?php echo $add_form_url ?>"><?php _e( 'Add New', 'yith-woocommerce-review-reminder' ); ?></a>
                 <?php endif; ?>
             </h2>
             <?php
@@ -187,14 +187,14 @@ class YWRR_Blocklist_Table {
                         <tbody>
                         <tr valign="top" class="titledesc">
                             <th scope="row">
-                                <label for="email"><?php _e( 'Add E-Mail to blocklist', 'ywrr' ); ?></label>
+                                <label for="email"><?php _e( 'Add E-Mail to blocklist', 'yith-woocommerce-review-reminder' ); ?></label>
                             </th>
                             <td class="forminp forminp-email">
                                 <input id="email" name="email" type="email" required>
                             </td>
                             <td>
-                                <input type="submit" value="<?php _e( 'Add E-mail', 'ywrr' ) ?>" id="submit" class="button-primary" name="submit">
-                                <a class="button-secondary" href="<?php echo $blocklist_url ?>"><?php _e( 'Return to blocklist', 'ywrr' ) ?></a>
+                                <input type="submit" value="<?php _e( 'Add E-mail', 'yith-woocommerce-review-reminder' ) ?>" id="submit" class="button-primary" name="submit">
+                                <a class="button-secondary" href="<?php echo $blocklist_url ?>"><?php _e( 'Return to blocklist', 'yith-woocommerce-review-reminder' ) ?></a>
                             </td>
                         </tr>
                         </tbody>
@@ -225,7 +225,7 @@ class YWRR_Blocklist_Table {
             $option = 'per_page';
 
             $args = array(
-                'label'   => __( 'Customers', 'ywrr' ),
+                'label'   => __( 'Customers', 'yith-woocommerce-review-reminder' ),
                 'default' => 10,
                 'option'  => 'user_per_page'
             );

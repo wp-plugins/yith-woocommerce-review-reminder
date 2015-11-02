@@ -23,7 +23,7 @@ if ( !defined( 'ABSPATH' ) ) {
 
 echo $email_heading . "\n\n";
 
-printf( __( 'You have received a request for unsubscription. Email address is the following: %s', 'ywrr' ), $customer_mail );
+printf( __( 'You have received a request for unsubscription. Email address is the following: %s', 'yith-woocommerce-review-reminder' ), $customer_mail );
 
 echo apply_filters( 'woocommerce_email_footer_text', get_option( 'woocommerce_email_footer_text' ) );
 

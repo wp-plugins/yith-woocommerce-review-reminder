@@ -81,10 +81,10 @@ if ( !class_exists( 'YWRR_Form_Handler' ) ) {
             $customer_email = !empty( $_POST['account_email'] ) ? sanitize_email( $_POST['account_email'] ) : '';
 
             if ( empty( $customer_email ) || !is_email( $customer_email ) ) {
-                wc_add_notice( __( 'Please provide a valid email address.', 'ywrr' ), 'error' );
+                wc_add_notice( __( 'Please provide a valid email address.', 'yith-woocommerce-review-reminder' ), 'error' );
             }
             elseif ( $customer_email !== urldecode( base64_decode( $_GET['email'] ) ) ) {
-                wc_add_notice( __( 'Please retype the email address as provided.', 'ywrr' ), 'error' );
+                wc_add_notice( __( 'Please retype the email address as provided.', 'yith-woocommerce-review-reminder' ), 'error' );
             }
 
             if ( wc_notice_count( 'error' ) === 0 ) {
@@ -93,7 +93,7 @@ if ( !class_exists( 'YWRR_Form_Handler' ) ) {
 
                 $email->trigger( $customer_email );
 
-                wc_add_notice( __( 'An email has been sent with your request', 'ywrr' ) );
+                wc_add_notice( __( 'An email has been sent with your request', 'yith-woocommerce-review-reminder' ) );
                 wp_safe_redirect( get_permalink( get_option( 'ywrr_unsubscribe_page_id' ) ) );
                 exit;
             }

@@ -69,8 +69,8 @@ if ( !class_exists( 'YWRR_Unsubscribe_Mail' ) ) {
 
             if ( $customer_mail ) {
                 $this->email_type = get_option( 'ywrr_mail_type' );
-                $this->heading    = __( 'Unsubscribe Request', 'ywrr' );
-                $this->subject    = __( 'Unsubscribe Request', 'ywrr' );
+                $this->heading    = __( 'Unsubscribe Request', 'yith-woocommerce-review-reminder' );
+                $this->subject    = __( 'Unsubscribe Request', 'yith-woocommerce-review-reminder' );
 
                 $this->customer_mail = $customer_mail;
 

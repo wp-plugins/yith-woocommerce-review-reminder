@@ -4,8 +4,8 @@ Plugin Name: YITH WooCommerce Review Reminder
 Plugin URI: http://yithemes.com/themes/plugins/yith-woocommerce-review-reminder
 Description: Send a review reminder to the customers over WooCommerce.
 Author: Yithemes
-Text Domain: ywrr
-Version: 1.1.0
+Text Domain: yith-woocommerce-review-reminder
+Version: 1.1.1
 Author URI: http://yithemes.com/
 */
 
@@ -20,7 +20,7 @@ if ( !function_exists( 'is_plugin_active' ) ) {
 function ywrr_install_woocommerce_admin_notice() {
     ?>
     <div class="error">
-        <p><?php _e( 'YITH WooCommerce Review Reminder is enabled but not effective. It requires WooCommerce in order to work.', 'ywrr' ); ?></p>
+        <p><?php _e( 'YITH WooCommerce Review Reminder is enabled but not effective. It requires WooCommerce in order to work.', 'yith-woocommerce-review-reminder' ); ?></p>
     </div>
 <?php
 }
@@ -28,13 +28,13 @@ function ywrr_install_woocommerce_admin_notice() {
 function ywrr_install_free_admin_notice() {
     ?>
     <div class="error">
-        <p><?php _e( 'You can\'t activate the free version of YITH WooCommerce Review Reminder while you are using the premium one.', 'ywrr' ); ?></p>
+        <p><?php _e( 'You can\'t activate the free version of YITH WooCommerce Review Reminder while you are using the premium one.', 'yith-woocommerce-review-reminder' ); ?></p>
     </div>
 <?php
 }
 
 if ( !defined( 'YWRR_VERSION' ) ) {
-    define( 'YWRR_VERSION', '1.1.0' );
+    define( 'YWRR_VERSION', '1.1.1' );
 }
 
 if ( !defined( 'YWRR_FREE_INIT' ) ) {
@@ -70,7 +70,7 @@ yit_maybe_plugin_fw_loader( YWRR_DIR );
 function ywrr_init() {
 
     /* Load YWRR text domain */
-    load_plugin_textdomain( 'ywrr', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+    load_plugin_textdomain( 'yith-woocommerce-review-reminder', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 
     global $YWRR_Review_Reminder;
     $YWRR_Review_Reminder = new YWRR_Review_Reminder();

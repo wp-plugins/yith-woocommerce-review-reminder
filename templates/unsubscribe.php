@@ -24,15 +24,15 @@ wc_print_notices();
 
 if( isset( $_GET[ 'email' ] )) {
     ?>
-    <p><?php printf( __( 'If you don\'t want to receive any more review reminders, please retype your email address: %s', 'ywrr' ), '<b>' . urldecode( base64_decode( $_GET[ 'email' ] ) ) . '</b>' ) ?></p>
+    <p><?php printf( __( 'If you don\'t want to receive any more review reminders, please retype your email address: %s', 'yith-woocommerce-review-reminder' ), '<b>' . urldecode( base64_decode( $_GET[ 'email' ] ) ) . '</b>' ) ?></p>
     <form method="post" action="">
         <p class="form-row form-row-wide">
-            <label for="account_email"><?php _e( 'Email address', 'ywrr' ); ?> <span class="required">*</span></label>
+            <label for="account_email"><?php _e( 'Email address', 'yith-woocommerce-review-reminder' ); ?> <span class="required">*</span></label>
             <input type="email" class="input-text" name="account_email" id="account_email"/>
         </p>
         <p>
             <?php wp_nonce_field( 'unsubscribe_review_request' ); ?>
-            <input type="submit" class="button" name="unsubscribe_review_request" value="<?php _e( 'Unsubscribe', 'ywrr' ); ?>"/>
+            <input type="submit" class="button" name="unsubscribe_review_request" value="<?php _e( 'Unsubscribe', 'yith-woocommerce-review-reminder' ); ?>"/>
             <input type="hidden" name="account_id" value="<?php echo urldecode( base64_decode( $_GET[ 'id' ] ) ); ?>"/>
             <input type="hidden" name="action" value="unsubscribe_review_request"/>
         </p>
@@ -40,6 +40,6 @@ if( isset( $_GET[ 'email' ] )) {
 <?php
 } else {
     ?>
-    <p class="return-to-shop"><a class="button wc-backward" href="<?php echo get_home_url(); ?>"><?php _e( 'Return To Home Page', 'ywrr' ) ?></a></p>
+    <p class="return-to-shop"><a class="button wc-backward" href="<?php echo get_home_url(); ?>"><?php _e( 'Return To Home Page', 'yith-woocommerce-review-reminder' ) ?></a></p>
 <?php
 }

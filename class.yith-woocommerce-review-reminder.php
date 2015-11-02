@@ -316,24 +316,24 @@ if ( !class_exists( 'YWRR_Review_Reminder' ) ) {
             }
 
             $admin_tabs = array(
-                'mail'      => __( 'Mail Settings', 'ywrr' ),
-                'blocklist' => __( 'Blocklist', 'ywrr' )
+                'mail'      => __( 'Mail Settings', 'yith-woocommerce-review-reminder' ),
+                'blocklist' => __( 'Blocklist', 'yith-woocommerce-review-reminder' )
             );
 
             if ( defined( 'YWRR_PREMIUM' ) ) {
-                $admin_tabs['settings'] = __( 'Request Settings', 'ywrr' );
-                $admin_tabs['mandrill'] = __( 'Mandrill Settings', 'ywrr' );
-                $admin_tabs['schedule'] = __( 'Schedule List', 'ywrr' );
+                $admin_tabs['settings'] = __( 'Request Settings', 'yith-woocommerce-review-reminder' );
+                $admin_tabs['mandrill'] = __( 'Mandrill Settings', 'yith-woocommerce-review-reminder' );
+                $admin_tabs['schedule'] = __( 'Schedule List', 'yith-woocommerce-review-reminder' );
             }
             else {
-                $admin_tabs['premium-landing'] = __( 'Premium Version', 'ywrr' );
+                $admin_tabs['premium-landing'] = __( 'Premium Version', 'yith-woocommerce-review-reminder' );
             }
 
             $args = array(
                 'create_menu_page' => true,
                 'parent_slug'      => '',
-                'page_title'       => __( 'Review Reminder', 'ywrr' ),
-                'menu_title'       => __( 'Review Reminder', 'ywrr' ),
+                'page_title'       => __( 'Review Reminder', 'yith-woocommerce-review-reminder' ),
+                'menu_title'       => __( 'Review Reminder', 'yith-woocommerce-review-reminder' ),
                 'capability'       => 'manage_options',
                 'parent'           => '',
                 'parent_page'      => 'yit_plugin_panel',
@@ -375,7 +375,7 @@ if ( !class_exists( 'YWRR_Review_Reminder' ) ) {
          */
         public function ywrr_post_status() {
             register_post_status( 'ywrr-unsubscribe', array(
-                'label'                     => __( 'Unsubscribe Page', 'ywrr' ),
+                'label'                     => __( 'Unsubscribe Page', 'yith-woocommerce-review-reminder' ),
                 'public'                    => true,
                 'exclude_from_search'       => true,
                 'show_in_admin_all_list'    => false,
@@ -398,8 +398,8 @@ if ( !class_exists( 'YWRR_Review_Reminder' ) ) {
 
             $pages = apply_filters( 'woocommerce_create_pages', array(
                 'unsubscribe' => array(
-                    'name'    => _x( 'unsubscribe', 'Page slug', 'ywrr' ),
-                    'title'   => _x( 'Unsubscribe', 'Page title', 'ywrr' ),
+                    'name'    => _x( 'unsubscribe', 'Page slug', 'yith-woocommerce-review-reminder' ),
+                    'title'   => _x( 'Unsubscribe', 'Page title', 'yith-woocommerce-review-reminder' ),
                     'content' => '[ywrr_unsubscribe]'
                 )
             ) );
@@ -446,7 +446,7 @@ if ( !class_exists( 'YWRR_Review_Reminder' ) ) {
             global $post_type, $pagenow;
 
             if ( $pagenow == 'edit.php' && $post_type == 'page' && isset( $_GET['impossible'] ) ) {
-                echo '<div id="message" class="error"><p>' . __( 'The unsubscribe page cannot be deleted', 'ywrr' ) . '</p></div>';
+                echo '<div id="message" class="error"><p>' . __( 'The unsubscribe page cannot be deleted', 'yith-woocommerce-review-reminder' ) . '</p></div>';
             }
         }
 
@@ -569,10 +569,10 @@ if ( !class_exists( 'YWRR_Review_Reminder' ) ) {
          */
         public function action_links( $links ) {
 
-            $links[] = '<a href="' . admin_url( "admin.php?page={$this->_panel_page}" ) . '">' . __( 'Settings', 'ywrr' ) . '</a>';
+            $links[] = '<a href="' . admin_url( "admin.php?page={$this->_panel_page}" ) . '">' . __( 'Settings', 'yith-woocommerce-review-reminder' ) . '</a>';
 
             if ( defined( 'YWRR_FREE_INIT' ) ) {
-                $links[] = '<a href="' . $this->_premium_landing . '" target="_blank">' . __( 'Premium Version', 'ywrr' ) . '</a>';
+                $links[] = '<a href="' . $this->_premium_landing . '" target="_blank">' . __( 'Premium Version', 'yith-woocommerce-review-reminder' ) . '</a>';
             }
 
             return $links;
@@ -599,7 +599,7 @@ if ( !class_exists( 'YWRR_Review_Reminder' ) ) {
                 ( defined( 'YWRR_FREE_INIT' ) && ( YWRR_FREE_INIT == $plugin_file ) )
             ) {
 
-                $plugin_meta[] = '<a href="' . $this->_official_documentation . '" target="_blank">' . __( 'Plugin Documentation', 'ywrr' ) . '</a>';
+                $plugin_meta[] = '<a href="' . $this->_official_documentation . '" target="_blank">' . __( 'Plugin Documentation', 'yith-woocommerce-review-reminder' ) . '</a>';
             }
 
             return $plugin_meta;
@@ -613,7 +613,7 @@ if ( !class_exists( 'YWRR_Review_Reminder' ) ) {
          * @author  Alberto Ruggiero
          */
         public function get_premium_landing_uri() {
-            return defined( 'YITH_REFER_ID' ) ? $this->_premium_landing . '?refer_id=' . YITH_REFER_ID : $this->_premium_landing . '?refer_id=1030585';
+            return defined( 'YITH_REFER_ID' ) ? $this->_premium_landing . '?refer_id=' . YITH_REFER_ID : $this->_premium_landing;
         }
 
     }
